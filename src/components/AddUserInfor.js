@@ -97,48 +97,37 @@ import React, { useState } from 'react';
 
 const AddUserInfor = (props) => {
 
-    const [userInfor, setUserInfor] = useState({
-        name: '',
-        age: 0,
-        gender: 'male',
-    });
+    const [name, setName] = useState('');
+    const [age, setAge] = useState(0);
+    const [gender, setGender] = useState('male');
 
     const handleOnchangeName = (event) => {
-        setUserInfor({
-            ...userInfor,
-            name: event.target.value
-        });
+        setName(event.target.value);
     }
 
     const handleOnchangeAge = (event) => {
-        setUserInfor({
-            ...userInfor,
-            age: event.target.value
-        });
+        setAge(event.target.value);
     }
 
     const handleOnchangeGender = (event) => {
-        setUserInfor({
-            ...userInfor,
-            gender: event.target.value
-        });
+        setGender(event.target.value);
     }
 
     const handleOnSubmit = (event) => {
         event.preventDefault();
-        props.handleAddNewUser(userInfor);
+        props.handleAddNewUser({name, age, gender});
     }
 
     return (
         <div className='add-user-infor-container'>
-            <p><b>Name</b>: {userInfor.name}</p>
-            <p><b>Age</b>: {userInfor.age}</p>
-            <p><b>Gender</b>: {userInfor.gender}</p>
+            <p><b>Name</b>: {name}</p>
+            <p><b>Age</b>: {age}</p>
+            <p><b>Gender</b>: {gender}</p>
             <form onSubmit={(event) => { handleOnSubmit(event) }}>
                 <label>Your name: </label>
                 <input
                     type="text"
-                    value={userInfor.name}
+                    value={name}
                     onChange={(event) => { handleOnchangeName(event) }}
                 />
                 <br />
@@ -146,7 +135,7 @@ const AddUserInfor = (props) => {
                 <label>Your age: </label>
                 <input
                     type="text"
-                    value={userInfor.age}
+                    value={age}
                     onChange={(event) => { handleOnchangeAge(event) }}
                 />
                 <br />
@@ -154,7 +143,7 @@ const AddUserInfor = (props) => {
                 <label>Your gender: </label>
                 <input
                     type="text"
-                    value={userInfor.gender}
+                    value={gender}
                     onChange={(event) => { handleOnchangeGender(event) }}
                 />
                 <br />
