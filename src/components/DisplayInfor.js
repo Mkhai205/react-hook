@@ -25,6 +25,7 @@ class DisplayInfor extends React.Component {
         // console.table(listUser);
 
         return (
+            // template + logic (JSX + JS
             <div className='display-infor-container'>
                 <img src={logo} className="App-logo" alt="logo" />
                 <h2>Display Information</h2>
@@ -41,11 +42,17 @@ class DisplayInfor extends React.Component {
                             // console.log(index);
                             return (
                                 <div key={user.id} className={user.gender === 'male' ? 'blue' : 'pink'}>
-                                    <br />
-                                    <div>Name: {user.name}</div>
-                                    <div>Age: {user.age}</div>
-                                    <div>Gender: {user.gender}</div>
-                                    <br />
+                                    <div>
+                                        <div>Name: {user.name}</div>
+                                        <div>Age: {user.age}</div>
+                                        <div>Gender: {user.gender}</div>
+                                    </div>
+                                    <div>
+                                        <button onClick={() => this.props.handleDeleteUser(user.id)}>
+                                            Delete
+                                        </button>
+                                    </div>
+                                    <hr />
                                 </div>
                             )
                         })}

@@ -56,6 +56,7 @@ class AddUserInfor extends React.Component {
             gender: this.state.gender,
         });
     }
+
     render() {
         return (
             <div className='add-user-infor-container'>
