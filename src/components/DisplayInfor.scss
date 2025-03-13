@@ -6,3 +6,14 @@
     color: pink;
 }
 
+.display-infor-container {
+    button {
+        border-radius: 10px;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    button:hover {
+        background-color: lightblue;
+    }
+}
