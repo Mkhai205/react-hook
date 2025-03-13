@@ -8,9 +8,12 @@ import store from './redux/store';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    {/* // StrictMode is a tool for highlighting potential problems in an application. 
+    // Like Fragment, StrictMode does not render any visible UI. 
+    // It activates additional checks and warnings for its descendants. */}
+    {/* <React.StrictMode> */}
+    <App />
+    {/* </React.StrictMode> */}
   </Provider>
 );
 
