@@ -71,11 +71,11 @@ const DisplayInfor = (props) => {
             {isShowHideListUser &&
                 // React.Fragment
                 // <React.Fragment></React.Fragment> or <></>
-                <>
+                <div className='list-user-container'>
                     {listUser.map((user, index) => {
                         // console.log(index);
                         return (
-                            <div key={user.id} className={user.gender === 'male' ? 'blue' : 'pink'}>
+                            <div key={user.id} className={`${user.gender === 'male' ? 'blue' : 'pink'} user-container`}>
                                 <div>
                                     <div>Name: {user.name}</div>
                                     <div>Age: {user.age}</div>
@@ -90,7 +90,7 @@ const DisplayInfor = (props) => {
                             </div>
                         )
                     })}
-                </>
+                </div>
             }
         </div>
     )
