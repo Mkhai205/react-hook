@@ -9,6 +9,24 @@ class DisplayInfor extends React.Component {
         this.state = {
             isShowListUser: true,
         }
+        console.log('>>> call me component constructor');
+        
+    }
+
+    componentDidMount() {
+        console.log('>>> call me component did mount');
+        setTimeout(() => {
+            document.title = 'Anh Khai dz vl'; 
+        }, 3000);
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log('>>> call me component did update', this.props, prevProps);
+        if(this.props.listUser !== prevProps.listUser) {
+            if(this.props.listUser.length === 5) {
+                alert('You have 5 users !');
+            }
+        }
     }
 
     handleShowHide() {
@@ -18,6 +36,7 @@ class DisplayInfor extends React.Component {
     }
 
     render() {
+        console.log('>>> call me component render');
         // props => properties
         // props => read-only
         // console.log(this.props);
