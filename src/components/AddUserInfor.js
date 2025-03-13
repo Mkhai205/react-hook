@@ -1,10 +1,10 @@
 import React from 'react';
 
-class UserInfor extends React.Component {
+class AddUserInfor extends React.Component {
     state = {
-        name: 'Khai',
-        age: 20,
-        nationality: 'Vietnam'
+        name: '',
+        age: null,
+        gender: 'male',
     }
 
     handleClick(event) {
@@ -26,7 +26,7 @@ class UserInfor extends React.Component {
 
     }
 
-    handleOnchangeInput(event) {
+    handleOnchangeName(event) {
         this.setState({
             name: event.target.value
         });
@@ -40,25 +40,37 @@ class UserInfor extends React.Component {
         });
     }
 
+    handleOnchangeGender(event) {
+        this.setState({
+            gender: event.target.value
+        });
+    }
+
     handleOnSubmit(event) {
         event.preventDefault();
         // alert('Form submitted !');
-        console.log(this.state);
+        // console.log(this.state);
+        this.props.handleAddNewUser({
+            name: this.state.name,
+            age: this.state.age,
+            gender: this.state.gender,
+        });
     }
     render() {
         return (
             <div>
                 <p><b>Name</b>: {this.state.name}</p>
                 <p><b>Age</b>: {this.state.age}</p>
-                <p><b>Nationality</b>: {this.state.nationality}</p>
+                <p><b>Gender</b>: {this.state.gender}</p>
                 <form onSubmit={(event) => { this.handleOnSubmit(event) }}>
                     <label>Your name: </label>
                     <input
                         type="text"
                         value={this.state.name}
-                        onChange={(event) => { this.handleOnchangeInput(event) }}
+                        onChange={(event) => { this.handleOnchangeName(event) }}
                     />
                     <br />
+
                     <label>Your age: </label>
                     <input
                         type="text"
@@ -66,6 +78,15 @@ class UserInfor extends React.Component {
                         onChange={(event) => { this.handleOnchangeAge(event) }}
                     />
                     <br />
+
+                    <label>Your gender: </label>
+                    <input
+                        type="text"
+                        value={this.state.gender}
+                        onChange={(event) => { this.handleOnchangeGender(event) }}
+                    />
+                    <br />
+
                     <button>Submit</button>
                 </form>
             </div>
@@ -73,4 +94,4 @@ class UserInfor extends React.Component {
     }
 }
 
-export default UserInfor;
+export default AddUserInfor;
