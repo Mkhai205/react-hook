@@ -3,7 +3,7 @@ import React from 'react';
 class AddUserInfor extends React.Component {
     state = {
         name: '',
-        age: null,
+        age: 0,
         gender: 'male',
     }
 
@@ -58,7 +58,7 @@ class AddUserInfor extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div className='add-user-infor-container'>
                 <p><b>Name</b>: {this.state.name}</p>
                 <p><b>Age</b>: {this.state.age}</p>
                 <p><b>Gender</b>: {this.state.gender}</p>

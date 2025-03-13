@@ -25,7 +25,7 @@ class MyComponent extends React.Component {
     render() {
         // DRY: Don't Repeat Yourself
         return (
-            <div>
+            <div className='my-component-container'>
                 <h1>My first component</h1>
                 <AddUserInfor handleAddNewUser={this.handleAddNewUser}
                 />

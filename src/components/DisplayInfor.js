@@ -1,4 +1,5 @@
 import React from 'react';
+import './DisplayInfor.scss';
 
 class DisplayInfor extends React.Component {
 
@@ -23,7 +24,7 @@ class DisplayInfor extends React.Component {
         // console.table(listUser);
 
         return (
-            <div>
+            <div className='display-infor-container'>
                 <div>
                     <button onClick={() => { this.handleShowHide() }}>
                         {this.state.isShowListUser ? 'Click to hide' : 'Click to show'}
