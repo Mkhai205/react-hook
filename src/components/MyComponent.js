@@ -4,23 +4,23 @@ import DisplayInfor from './DisplayInfor';
 
 class MyComponent extends React.Component {
 
-    
+    state = {
+        listUser: [
+            {id: 1, name: 'Manh Khai', age: 20},
+            {id: 2, name: 'Huong Giang', age: 21},
+            {id: 3, name: 'Huong Tra', age: 22},
+        ]
+    }
 
     // JSX
     render() {
-        const myName = 'Khai';
-        const myAge = 20;
-        const myHobbies = ['Reading', 'Coding', 'Traveling'];
-        const myAddress = {
-            city: 'Ha Noi',
-            country: 'Vietnam'
-        };
+        // DRY: Don't Repeat Yourself
         return (
             <div>
                 <h1>My first component</h1>
                 <UserInfor />
-                <br />
-                <DisplayInfor name={myName} age={myAge} hobbies={myHobbies} address={myAddress} />
+                <hr />
+                <DisplayInfor listUser={this.state.listUser} />
             </div>
         );
     }
