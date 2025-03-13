@@ -34,7 +34,9 @@ class DisplayInfor extends React.Component {
                     </button>
                 </div>
                 {this.state.isShowListUser &&
-                    <div>
+                    // React.Fragment
+                    // <React.Fragment></React.Fragment> or <></>
+                    <>
                         {listUser.map((user, index) => {
                             // console.log(index);
                             return (
@@ -47,7 +49,7 @@ class DisplayInfor extends React.Component {
                                 </div>
                             )
                         })}
-                    </div>
+                    </>
                 }
             </div>
         )
