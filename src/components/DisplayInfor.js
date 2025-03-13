@@ -2,87 +2,87 @@ import React from 'react';
 import './DisplayInfor.scss';
 import logo from '../logo.svg';
 
-class DisplayInfor extends React.Component {
-    // babel compiler
-    constructor(props) {
-        super(props);
-        this.state = {
-            isShowListUser: true,
-        }
-        console.log('>>> call me component constructor');
-        
-    }
+// stateless vs stateful component
+// class DisplayInfor extends React.Component {
 
-    componentDidMount() {
-        console.log('>>> call me component did mount');
-        setTimeout(() => {
-            document.title = 'Anh Khai dz vl'; 
-        }, 3000);
-    }
+//     render() {
+//         // console.log('>>> call me component render');
+//         // props => properties
+//         // props => read-only
+//         // console.log(this.props);
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log('>>> call me component did update', this.props, prevProps);
-        if(this.props.listUser !== prevProps.listUser) {
-            if(this.props.listUser.length === 5) {
-                alert('You have 5 users !');
-            }
-        }
-    }
+//         // destructuring array/object
+//         const { listUser } = this.props;
+//         // console.log(listUser);
+//         // console.table(listUser);
 
-    handleShowHide() {
-        this.setState({
-            isShowListUser: !this.state.isShowListUser
-        });
-    }
+//         return (
+//             // template + logic (JSX + JS
+//             <div className='display-infor-container'>
+//                 <img src={logo} className="App-logo" alt="logo" />
+//                 <h2>Display Information</h2>
+//                 {true &&
+//                     // React.Fragment
+//                     // <React.Fragment></React.Fragment> or <></>
+//                     <>
+//                         {listUser.map((user, index) => {
+//                             // console.log(index);
+//                             return (
+//                                 <div key={user.id} className={user.gender === 'male' ? 'blue' : 'pink'}>
+//                                     <div>
+//                                         <div>Name: {user.name}</div>
+//                                         <div>Age: {user.age}</div>
+//                                         <div>Gender: {user.gender}</div>
+//                                     </div>
+//                                     <div>
+//                                         <button onClick={() => this.props.handleDeleteUser(user.id)}>
+//                                             Delete
+//                                         </button>
+//                                     </div>
+//                                     <hr />
+//                                 </div>
+//                             )
+//                         })}
+//                     </>
+//                 }
+//             </div>
+//         )
+//     }
+// }
 
-    render() {
-        console.log('>>> call me component render');
-        // props => properties
-        // props => read-only
-        // console.log(this.props);
+const DisplayInfor = (props) => {
+    const { listUser } = props;
 
-        // destructuring array/object
-        const { listUser } = this.props;
-        // console.log(listUser);
-        // console.table(listUser);
-
-        return (
-            // template + logic (JSX + JS
-            <div className='display-infor-container'>
-                <img src={logo} className="App-logo" alt="logo" />
-                <h2>Display Information</h2>
-                <div>
-                    <button onClick={() => { this.handleShowHide() }}>
-                        {this.state.isShowListUser ? 'Click to hide' : 'Click to show'}
-                    </button>
-                </div>
-                {this.state.isShowListUser &&
-                    // React.Fragment
-                    // <React.Fragment></React.Fragment> or <></>
-                    <>
-                        {listUser.map((user, index) => {
-                            // console.log(index);
-                            return (
-                                <div key={user.id} className={user.gender === 'male' ? 'blue' : 'pink'}>
-                                    <div>
-                                        <div>Name: {user.name}</div>
-                                        <div>Age: {user.age}</div>
-                                        <div>Gender: {user.gender}</div>
-                                    </div>
-                                    <div>
-                                        <button onClick={() => this.props.handleDeleteUser(user.id)}>
-                                            Delete
-                                        </button>
-                                    </div>
-                                    <hr />
+    return (
+        <div className='display-infor-container'>
+            <img src={logo} className="App-logo" alt="logo" />
+            <h2>Display Information</h2>
+            {true &&
+                // React.Fragment
+                // <React.Fragment></React.Fragment> or <></>
+                <>
+                    {listUser.map((user, index) => {
+                        // console.log(index);
+                        return (
+                            <div key={user.id} className={user.gender === 'male' ? 'blue' : 'pink'}>
+                                <div>
+                                    <div>Name: {user.name}</div>
+                                    <div>Age: {user.age}</div>
+                                    <div>Gender: {user.gender}</div>
                                 </div>
-                            )
-                        })}
-                    </>
-                }
-            </div>
-        )
-    }
+                                <div>
+                                    <button onClick={() => props.handleDeleteUser(user.id)}>
+                                        Delete
+                                    </button>
+                                </div>
+                                <hr />
+                            </div>
+                        )
+                    })}
+                </>
+            }
+        </div>
+    )
 }
 
 export default DisplayInfor;
