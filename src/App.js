@@ -1,17 +1,22 @@
 import './App.scss';
 import NavigationBar from './components/Navigation/NavigationBar';
-import { Link } from 'react-router-dom';
- 
+import { Outlet } from 'react-router-dom';
+
 const App = () => {
 
   return (
     <div className="app-container">
+      <div className='header-container'>
         <NavigationBar />
-        <div>
-          test Link
-          <button><Link to='/admin'>Go to admin</Link></button>
-          <button><Link to='/users'>Go to user</Link></button>
+      </div>
+      <div className='main-container'>
+        <div className='sidenav-container'>
+
         </div>
+        <div className='app-content'>
+          <Outlet />
+        </div>
+      </div>
     </div>
   );
 }
