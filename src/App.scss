@@ -1,9 +1,126 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.app-container {
+  position: relative;
+  .header-container {
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    // background-color: rgba(255, 255, 255, 0.2);
+    background-color: transparent;
+    // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    @media (min-width: 1400px) {
+      .container,
+      .container-lg,
+      .container-md,
+      .container-sm,
+      .container-xl,
+      .container-xxl {
+        max-width: 1400px;
+      }
+    }
+    .navbar {
+      .navbar-brand {
+        color: #00bfff;
+        font-size: 1.6rem;
+        font-weight: 600;
+        .app-logo {
+          height: 50px;
+          width: 50px;
+        }
+        @media (prefers-reduced-motion: no-preference) {
+          .app-logo {
+            animation: app-logo-spin infinite 18s linear;
+          }
+        }
+        @keyframes app-logo-spin {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+      }
+      .navbar-nav {
+        .nav-link {
+          &.active {
+            color: #00bfff;
+          }
+        }
+      }
+      .btn-login {
+        height: 40px;
+        margin: 0 10px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        background-color: transparent;
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+      .btn-signup {
+        height: 40px;
+        margin: 0 10px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: none;
+        background-color: #000;
+        color: #fff;
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+
+  .main-container {
+    .app-content {
+      .homepage-container {
+        .homepage-video {
+          width: 100%;
+          height: 100%;
+        }
+        .homepage-content {
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 32px;
+          top: 24%;
+          left:3%;
+          width: 40%;
+          .title {
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: #333;
+          }
+          .quotes {
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: #333;
+          }
+          .btn-start {
+            margin-top: 32px;
+            padding: 12px 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #000;
+            color: #fff;
+            &:hover {
+              transform: scale(1.05);
+            }
+          }
+        }
+      }
+    }
+  }
 }
