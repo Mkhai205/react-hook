@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './DisplayInfor.scss';
 import logo from '../logo.svg';
 
@@ -59,6 +59,16 @@ const DisplayInfor = (props) => {
         setIsShowHideListUser(!isShowHideListUser);
     };
 
+    useEffect(() => {
+        if(listUser.length === 0) {
+            alert('No user infor');
+        }
+        console.log('>> call me useEffect');
+    }, [listUser]);
+
+    console.log('>> call me component render');
+    
+
     return (
         <div className='display-infor-container'>
             <img src={logo} className="App-logo" alt="logo" />
@@ -82,7 +92,7 @@ const DisplayInfor = (props) => {
                                     <div>Gender: {user.gender}</div>
                                 </div>
                                 <div>
-                                    <button onClick={() => props.handleDeleteUser(user.id)}>
+                                    <button onClick={() => props.handleDeleteUser(user.id)}> 
                                         Delete
                                     </button>
                                 </div>

@@ -115,7 +115,7 @@ const AddUserInfor = (props) => {
 
     const handleOnSubmit = (event) => {
         event.preventDefault();
-        props.handleAddNewUser({name, age, gender});
+        props.handleAddNewUser({ name, age, gender });
     }
 
     return (
