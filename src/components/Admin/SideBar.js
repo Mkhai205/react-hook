@@ -13,6 +13,7 @@ import {
 import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
 import { SiReactivex } from "react-icons/si";
 import { MdDashboard } from "react-icons/md";
+import { Link } from 'react-router-dom';
 
 
 
@@ -40,7 +41,7 @@ const SideBar = (props) => {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        <SiReactivex size={'2.8rem'} color={'00bfff'} />
+                        <SiReactivex className='app-logo' />
                         <span> Kaka quizz</span>
                     </div>
                 </SidebarHeader>
@@ -49,9 +50,10 @@ const SideBar = (props) => {
                     <Menu iconShape="circle">
                         <MenuItem
                             icon={<MdDashboard />}
-                            suffix={<span className="badge red">New</span>}
+                            // suffix={<span className="badge red">New</span>}
                         >
                             Dashboard
+                            <Link to='/admins' />
                         </MenuItem>
                     </Menu>
                     <Menu iconShape="circle">
@@ -59,9 +61,16 @@ const SideBar = (props) => {
                             icon={<FaGem />}
                             title='Features'
                         >
-                            <MenuItem> Quản lý Users</MenuItem>
-                            <MenuItem> Quản lý bài Quiz</MenuItem>
-                            <MenuItem> Quản lý câu hỏi</MenuItem>
+                            <MenuItem>
+                                Quản lý Users
+                                <Link to='/admins/manage-user' />
+                            </MenuItem>
+                            <MenuItem>
+                                Quản lý bài Quiz
+                            </MenuItem>
+                            <MenuItem>
+                                Quản lý câu hỏi
+                            </MenuItem>
                         </SubMenu>
 
                     </Menu>
@@ -82,7 +91,7 @@ const SideBar = (props) => {
                         >
                             <FaGithub />
                             <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                                viewSource
+                                MKhai205
                             </span>
                         </a>
                     </div>

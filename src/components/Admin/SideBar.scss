@@ -1,3 +1,22 @@
+.app-logo {
+    color: #00bfff;
+    font-size: 2.4rem;
+    font-weight: 600;
+}
+@media (prefers-reduced-motion: no-preference) {
+    .app-logo {
+        animation: app-logo-spin infinite 18s linear;
+    }
+}
+@keyframes app-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .sidebar-btn-wrapper {
     display: flex;
     align-items: center;
@@ -26,4 +45,3 @@
         }
     }
 }
-

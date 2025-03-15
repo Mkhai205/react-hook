@@ -3,7 +3,8 @@ import './Admin.scss';
 import { FaBars } from 'react-icons/fa';
 import { useState } from 'react';
 import img_bg from '../../assets/images/bg-sidebar.jpg';
- 
+import { Outlet } from 'react-router-dom';
+
 
 const Admin = (props) => {
     const [collapsed, setCollapsed] = useState(false);
@@ -15,8 +16,12 @@ const Admin = (props) => {
                 <SideBar collapsed={collapsed} sidebarBg={sidebarBg} />
             </div>
             <div className="admin-content">
-                <FaBars className="admin-toggle" onClick={() => setCollapsed(!collapsed)} />
-                content
+                <div className="admin-header">
+                    <FaBars className="admin-toggle" onClick={() => setCollapsed(!collapsed)} />
+                </div>
+                <div className="admin-main">
+                    <Outlet />
+                </div>
             </div>
         </div>
     );
