@@ -1,0 +1,41 @@
+.manager-user-container {
+    .manager-user-header {
+        .manager-user-main {
+        }
+    }
+}
+
+.modal-create-user {
+    .img-preview {
+        height: 300px;
+        border: 2px dashed #ccc;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #ccc;
+
+        img {
+            width: 60%;
+            height: 90%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+    }
+
+    .label-upload {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 3px 6px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        width: fit-content;
+        cursor: pointer;
+        &:hover {
+            background-color: #f0f0f0;
+            transform: scale(1.05);
+        }
+    }
+
+}
