@@ -27,7 +27,7 @@ const Admin = (props) => {
             </div>
 
             <ToastContainer
-                position="top-center"
+                position="top-right"
                 autoClose={5000}
                 hideProgressBar={false}
                 newestOnTop={false}
