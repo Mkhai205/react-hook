@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from 'react-icons/fc';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const ModalCreateUser = (props) => {
     const { show, setShow } = props;
@@ -31,9 +32,24 @@ const ModalCreateUser = (props) => {
         }
     }
 
+    const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
+
     const handleSubmitCreateUser = async () => {
-        // alert('Create user');
         // validate
+        if (!email || !username || !password) {
+            toast.error('Please fill all fields');
+            return;
+        }
+        if (!validateEmail(email)) {
+            toast.error('Invalid email');
+            return;
+        }
 
         // call api
         const data = new FormData();
@@ -45,8 +61,13 @@ const ModalCreateUser = (props) => {
 
         const res = await axios.post('http://localhost:8081/api/v1/participant', data);
 
-        console.log("🚀 ~ ModalCreateUser.js:41 ~ handleSubmitCreateUser ~ res:", res);
-        
+        console.log("🚀 ~ ModalCreateUser.js:41 ~ handleSubmitCreateUser ~ res:", res.data);
+        if (res.data && res.data.EC === 0) {
+            toast.success('Create user success');
+            handleClose();
+        } else if(res.data && res.data.EC !== 0) {
+            toast.error(res.data.EM);
+        }
     }
 
     return (
@@ -73,6 +94,8 @@ const ModalCreateUser = (props) => {
                                 type="email"
                                 className="form-control"
                                 value={email}
+                                placeholder='abc@gmail.com'
+                                required
                                 onChange={(event) => setEmail(event.target.value)}
                             />
                         </div>
