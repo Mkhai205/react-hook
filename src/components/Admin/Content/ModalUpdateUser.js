@@ -71,7 +71,7 @@ const ModalUpdateUser = (props) => {
                 onHide={handleClose}
                 size="lg"
                 backdrop="static"
-                className='modal-create-user'
+                className='modal-update-user'
             >
                 <Modal.Header closeButton>
                     <Modal.Title>Update a user</Modal.Title>

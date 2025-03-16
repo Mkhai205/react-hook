@@ -5,13 +5,15 @@ import TableUser from './TableUser';
 import { useState, useEffect } from 'react';
 import { getAllUsers } from '../../../services/apiService';
 import ModalUpdateUser from './ModalUpdateUser';
+import ModalShowUser from './ModalShowUser';
 
 const ManageUser = (props) => {
 
     const [showModalCreateUser, setShowModalCreateUser] = useState(false);
     const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
+    const [showModalShowUser, setShowModalShowUser] = useState(false);
     const [listUser, setListUser] = useState([]);
-    const [dataUpdate, setDataUpdate] = useState({});
+    const [dataSelectedUser, setDataSelectedUser] = useState({});
 
     // componentDidMount
     useEffect(() => {
@@ -27,7 +29,12 @@ const ManageUser = (props) => {
 
     const handleClickBtnUpdate = (user) => {
         setShowModalUpdateUser(!showModalUpdateUser);
-        setDataUpdate(user);
+        setDataSelectedUser(user);
+    }
+
+    const handleClickBtnShow = (user) => {
+        setShowModalShowUser(!showModalShowUser);
+        setDataSelectedUser(user);
     }
 
     return (
@@ -43,6 +50,7 @@ const ManageUser = (props) => {
                     <TableUser
                         listUser={listUser}
                         handleClickBtnUpdate={handleClickBtnUpdate}
+                        handleClickBtnShow={handleClickBtnShow}
                     />
                 </div>
                 <ModalCreateUser
@@ -54,8 +62,14 @@ const ManageUser = (props) => {
                     show={showModalUpdateUser}
                     setShow={setShowModalUpdateUser}
                     fetchListUsers={fetchListUsers}
-                    dataUpdate={dataUpdate}
-                    setDataUpdate={setDataUpdate}
+                    dataUpdate={dataSelectedUser}
+                    setDataUpdate={setDataSelectedUser}
+                />
+                <ModalShowUser
+                    show={showModalShowUser}
+                    setShow={setShowModalShowUser}
+                    dataShow={dataSelectedUser}
+                    setDataShowUser={setDataSelectedUser}
                 />
             </div>
         </div>
