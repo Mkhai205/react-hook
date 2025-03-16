@@ -3,20 +3,15 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from 'react-icons/fc';
 import { toast } from 'react-toastify';
-import { postCreateNewUser } from '../../../services/apiService';
+import { putUpdateUser } from '../../../services/apiService';
 import _ from 'lodash';
 
 const ModalUpdateUser = (props) => {
-    const { show, setShow, dataUpdate } = props;
+    const { show, setShow, dataUpdate, setDataUpdate } = props;
 
     const handleClose = () => {
         setShow(false)
-        setEmail('');
-        setUsername('');
-        setPassword('');
-        setRole('USER');
-        setImage('');
-        setPreviewImage('');
+        setDataUpdate({});
     };
 
     const [email, setEmail] = useState('');
@@ -46,17 +41,18 @@ const ModalUpdateUser = (props) => {
 
     const handleSubmitCreateUser = async () => {
         // validate data
-        if (!email || !username || !password) {
-            toast.error('Please fill all fields');
+        if (!username) {
+            toast.error('Username is required');
             return;
         }
 
         // call api
-        const data = await postCreateNewUser(email, username, password, role, image);
+        const data = await putUpdateUser(dataUpdate.id, username, role, image);
 
-        console.log("🚀 ~ ModalCreateUser.js:41 ~ handleSubmitCreateUser ~ res:", data);
+        console.log("🚀 ~ ModalUpdateUser.js:57 ~ handleSubmitCreateUser ~ data:", data);
+
         if (data && data.EC === 0) {
-            toast.success('Create user success');
+            toast.success(data.EM);
             handleClose();
             await props.fetchListUsers();
         } else if (data && data.EC !== 0) {
