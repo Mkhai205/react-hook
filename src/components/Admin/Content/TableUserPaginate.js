@@ -1,13 +1,14 @@
-
-
 import ReactPaginate from "react-paginate";
 
 const TableUserPaginate = (props) => {
-    const { listUser, pageCount } = props;
+    const { listUser, pageCount, currentPage, setCurrentPage } = props;
 
     const handlePageClick = (event) => {
-        props.fetchGetListUsersWithPaginate(+event.selected + 1);
-        console.log(`User requested page number ${event.selected}`);
+        const selectedPage = parseInt(event.selected) + 1;
+        setCurrentPage(selectedPage);
+        console.log('🚀 ~ TableUserPaginate.js ~ handlePageClick ~ event.selected', selectedPage);
+
+        props.fetchGetListUsersWithPaginate(selectedPage);
     };
 
     return (
@@ -47,13 +48,14 @@ const TableUserPaginate = (props) => {
                     ))}
                     {listUser && listUser.length === 0 && (
                         <tr>
-                            <td colSpan='4' className='text-center'>No data</td>
+                            <td colSpan='5' className='text-center'>No data</td>
                         </tr>
                     )}
                 </tbody>
             </table>
             <ReactPaginate
-            className="pagination"
+                className="pagination"
+                forcePage={currentPage - 1}
                 nextLabel="Next >"
                 onPageChange={handlePageClick}
                 pageRangeDisplayed={3}
