@@ -7,11 +7,11 @@ import { putUpdateUser } from '../../../services/apiService';
 import _ from 'lodash';
 
 const ModalUpdateUser = (props) => {
-    const { show, setShow, dataUpdate, setDataUpdate } = props;
+    const { show, setShow, dataUpdate, setDataUpdateUser } = props;
 
     const handleClose = () => {
         setShow(false)
-        setDataUpdate({});
+        setDataUpdateUser({});
     };
 
     const [email, setEmail] = useState('');
