@@ -1,17 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Admin from './components/Admin/Admin';
-import User from './components/User/User';
-import HomePage from './components/Home/HomePage';
-import ManageUser from './components/Admin/Content/ManageUser';
-import DashBoard from './components/Admin/Content/Dashboard';
-import Login from './components/Auth/Login';
+import { BrowserRouter } from 'react-router-dom';
+import Layout from './Layout';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,19 +15,7 @@ root.render(
     // It activates additional checks and warnings for its descendants. */}
     {/* <React.StrictMode> */}
     <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<App />} >
-          <Route index element={<HomePage />} />
-          <Route path='/users' element={<User />} />
-        </Route>
-
-        <Route path='/admins' element={<Admin />}>
-          <Route index element={<DashBoard />} />
-          <Route path='manage-user' element={<ManageUser />} />
-        </Route>
-
-        <Route path='/login' element={<Login />} />
-      </Routes>
+      <Layout />
     </BrowserRouter>
     {/* </React.StrictMode> */}
   </Provider>

@@ -1,12 +1,28 @@
 import './Login.scss'
 import { useState } from 'react';
+import { TiArrowBack } from "react-icons/ti";
+import { useNavigate } from 'react-router-dom';
+import { postLogin } from '../../services/apiService';
+import { toast } from 'react-toastify';
 
 const Login = (props) => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLogin = () => {
-        alert('Login success!');
+    const handleLogin = async () => {
+        //validate
+
+
+
+        // call api
+        const data = await postLogin(email, password);
+        if (data && parseInt(data.EC) === 0) {      
+            toast.success(data.EM);
+            navigate('/');
+        } else if (data && parseInt(data.EC) !== 0) {
+            toast.error(data.EM);
+        }
     }
 
     return (
@@ -14,17 +30,23 @@ const Login = (props) => {
             className='login-container'
         >
             <div className='header'>
-                Don't have an account? <a href='/signup'>Sign up</a>
+                <span>Don't have an account?</span>
+                <button
+                    className='btn btn-primary'
+                >Sign up</button>
+            </div>
+            <div className='btn btn-primary go-back' onClick={() => navigate('/')}>
+                <TiArrowBack fontSize={'24px'} /> Go back home
             </div>
             <div className='title col-4'>
                 <h1>Kaka quizz</h1>
             </div>
             <div className='welcome col-4'>
-                <h4>Hello, who's this?</h4>
+                <h5>Hello, who's this?</h5>
             </div>
             <div className='form-content col-4'>
                 <div className='form-group'>
-                    <label for='email' >Email</label>
+                    <label htmlFor='email' >Email</label>
                     <input
                         type='email'
                         className='form-control'
@@ -34,7 +56,7 @@ const Login = (props) => {
                     />
                 </div>
                 <div className='form-group'>
-                    <label for='password' >Password</label>
+                    <label htmlFor='password' >Password</label>
                     <input
                         type='password'
                         className='form-control'
@@ -47,7 +69,7 @@ const Login = (props) => {
                 <button
                     className='btn btn-primary'
                     onClick={() => handleLogin()}
-                >Log in</button>
+                >Log in to KaKa Quizz</button>
             </div>
         </div>
     )
