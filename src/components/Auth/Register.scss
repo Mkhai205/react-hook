@@ -1,4 +1,4 @@
-.login-container {
+.register-container {
     height: 100vh;
     background-color: #f8f9fa;
     display: flex;
@@ -15,10 +15,10 @@
         span {
             margin-right: 12px;
         }
-        .sign-up {
+        .login {
             border: 1.6px solid #007bff;
         }
-        .sign-up:hover {
+        .login:hover {
             transform: scale(1.1);
             transition: all 0.3s;
         }
@@ -59,6 +59,7 @@
 
     .form-content {
         .form-group {
+            position: relative;
             margin-bottom: 15px;
             label {
                 font-size: 1rem;
@@ -67,6 +68,14 @@
             input {
                 height: 40px;
                 font-size: 1rem;
+            }
+            .icon-eye {
+                position: absolute;
+                top: 50%;
+                right: 16px;
+                transform: translateY(-50%);
+                cursor: pointer;
+                z-index: 1;
             }
         }
 

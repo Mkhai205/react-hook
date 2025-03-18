@@ -11,7 +11,7 @@ import ModalDeleteUser from './ModalDeleteUser';
 const ManageUser = (props) => {
     const LIMIT_USER = 8;
     const [pageCount, setPageCount] = useState(0);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(0);
     const [listUser, setListUser] = useState([]);
     const [dataSelectedUser, setDataSelectedUser] = useState({});
     const [showModalCreateUser, setShowModalCreateUser] = useState(false);

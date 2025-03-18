@@ -11,6 +11,7 @@ const ModalUpdateUser = (props) => {
 
     const handleClose = () => {
         setShow(false)
+        setPreviewImage('');
         setDataUpdateUser({});
     };
 
