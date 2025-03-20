@@ -36,13 +36,12 @@ const Login = (props) => {
             return;
         }
 
+        setIsLoading(true);
         try {
-            setIsLoading(true);
             // Call API
             const data = await postLogin(email, password);
             if (data && parseInt(data.EC) === 0) {
                 dispatch(doLogin(data.DT));
-                setIsLoading(false);
                 navigate('/');
                 toast.success(data.EM);
             } else if (data && parseInt(data.EC) !== 0) {
@@ -51,6 +50,7 @@ const Login = (props) => {
         } catch (error) {
             toast.error('An error occurred while logging in. Please try again.');
         }
+        setIsLoading(false);
     }
 
     return (

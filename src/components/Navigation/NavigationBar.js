@@ -41,7 +41,7 @@ const NavigationBar = (props) => {
                         </NavLink>
                     </Nav>
                     <Nav>
-                        {!isAuthenticated === false ?
+                        {isAuthenticated === false ?
                             <>
                                 <button
                                     className='btn-login'

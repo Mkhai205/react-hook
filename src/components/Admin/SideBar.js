@@ -14,11 +14,13 @@ import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } fro
 import { SiReactivex } from "react-icons/si";
 import { MdDashboard } from "react-icons/md";
 import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 
 
 const SideBar = (props) => {
     const { sidebarBg, collapsed, toggled, handleToggleSidebar } = props;
+    const navigate = useNavigate();
+
     return (
         <>
             <ProSidebar
@@ -39,7 +41,9 @@ const SideBar = (props) => {
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap',
+                            cursor: 'pointer'
                         }}
+                        onClick={() => navigate('/')}
                     >
                         <SiReactivex className='app-logo' />
                         <span> Kaka quizz</span>
