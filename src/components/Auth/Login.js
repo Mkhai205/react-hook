@@ -4,8 +4,11 @@ import { TiArrowBack } from "react-icons/ti";
 import { useNavigate } from 'react-router-dom';
 import { postLogin } from '../../services/apiService';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { doLogin } from '../../redux/action/userAction';
 
 const Login = (props) => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -33,8 +36,9 @@ const Login = (props) => {
             // Call API
             const data = await postLogin(email, password);
             if (data && parseInt(data.EC) === 0) {
-                toast.success(data.EM);
+                dispatch(doLogin(data.DT));
                 navigate('/');
+                toast.success(data.EM);
             } else if (data && parseInt(data.EC) !== 0) {
                 toast.error(data.EM);
             }
