@@ -6,12 +6,16 @@ import { postLogin } from '../../services/apiService';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { doLogin } from '../../redux/action/userAction';
+import { ImSpinner9 } from "react-icons/im";
+import 'nprogress/nprogress.css';
+
 
 const Login = (props) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const validateEmail = (email) => {
         return String(email)
@@ -33,10 +37,12 @@ const Login = (props) => {
         }
 
         try {
+            setIsLoading(true);
             // Call API
             const data = await postLogin(email, password);
             if (data && parseInt(data.EC) === 0) {
                 dispatch(doLogin(data.DT));
+                setIsLoading(false);
                 navigate('/');
                 toast.success(data.EM);
             } else if (data && parseInt(data.EC) !== 0) {
@@ -94,7 +100,11 @@ const Login = (props) => {
                         type='button'
                         className='btn btn-primary'
                         onClick={handleLogin}
-                    >Log in to KaKa Quizz</button>
+                        disabled={isLoading}
+                    >
+                        {isLoading && <ImSpinner9 className='loading-icon' />}
+                        <span>Log in to KaKa Quizz</span>
+                    </button>
                 </form>
             </div>
         </div>
