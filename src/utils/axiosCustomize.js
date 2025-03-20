@@ -15,6 +15,7 @@ instance.interceptors.request.use((config) => {
     nProgress.start();
     return config;
 }, (error) => {
+    nProgress.done();
     // Do something with request error
     return Promise.reject(error);
 });
@@ -25,6 +26,7 @@ instance.interceptors.response.use((response) => {
     // Do something with response data
     return (response && response.data) ? response.data : response;
 }, (error) => {
+    nProgress.done();
     // any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     return (error && error.response) ? error.response.data : Promise.reject(error);
