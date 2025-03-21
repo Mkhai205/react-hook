@@ -69,7 +69,26 @@ const DetailQuiz = (props) => {
     }
 
     const handleFinish = () => {
-        alert('Finish');
+        let dataSubmit = {
+            quizId: parseInt(quizId),
+            answers: []
+        };
+
+        dataQuiz.forEach((question) => {
+            let answer = []; 
+            question.answers.forEach((item) => {
+                if (item.isSelected) {
+                    answer.push(item.id);
+                }
+            });
+            dataSubmit.answers.push({
+                questionId: question.questionId,
+                userAnswerId: answer
+            });
+        });
+
+        console.log("🚀 ~ DetailQuiz.js:77 ~ handleFinish ~ dataSubmit:", dataSubmit);
+        
     }
 
     return (

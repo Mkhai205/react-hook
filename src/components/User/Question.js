@@ -31,7 +31,7 @@ const Question = (props) => {
                                         type="radio"
                                         name={`question-${currentQuestion + 1}`}
                                         value={answer.id}
-                                        onClick={(event) => handleCheckBox(event)}
+                                        onChange={(event) => handleCheckBox(event)}
                                         checked={answer.isSelected}
                                     />
                                     <span className="custom-radio"></span> {answer.description}
