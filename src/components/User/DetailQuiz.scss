@@ -1,0 +1,100 @@
+.detail-quiz-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+
+    .left-container {
+        border: 1px solid red;
+        width: 64%;
+        padding: 16px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .q-body {
+            .q-title {
+                h2 {
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                    color: #343a40;
+                }
+            }
+
+            .q-image {
+                height: 300px;
+                margin-bottom: 20px;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .q-content {
+                p {
+                    font-size: 1.2rem;
+                    color: #495057;
+                }
+
+                .answers {
+                    display: flex;
+                    flex-direction: column;
+
+                    .answer {
+                        padding: 10px;
+                        border: 1px solid #ced4da;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+
+                        input[type="radio"] {
+                            display: none;
+                        }
+
+                        .custom-radio {
+                            width: 20px;
+                            height: 20px;
+                            border-radius: 50%;
+                            border: 2px solid #007bff;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            margin-right: 10px;
+                            transition: all 0.3s ease;
+                        }
+
+                        input[type="radio"]:checked + .custom-radio {
+                            background-color: #007bff;
+                        }
+
+                        input[type="radio"]:checked + .custom-radio::after {
+                            content: "";
+                            width: 10px;
+                            height: 10px;
+                            background: white;
+                            border-radius: 50%;
+                        }
+
+                        &:hover {
+                            background-color: #e9ecef;
+                        }
+                    }
+                }
+            }
+        }
+        .footer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+
+            .btn {
+                width: 100px;
+            }
+        }
+    }
+
+    .right-container {
+        border: 1px solid blue;
+        width: 36%;
+        padding: 16px 20px;
+    }
+}
