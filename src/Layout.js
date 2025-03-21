@@ -3,13 +3,21 @@ import { ToastContainer, } from 'react-toastify';
 import App from './App';
 import { Routes, Route } from 'react-router-dom';
 import Admin from './components/Admin/Admin';
-import User from './components/User/User';
 import HomePage from './components/Home/HomePage';
 import ManageUser from './components/Admin/Content/ManageUser';
 import DashBoard from './components/Admin/Content/Dashboard';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import ListQuiz from './components/User/ListQuiz';
+import DetailQuiz from './components/User/DetailQuiz';
+
+const NotFound = () => {
+    return (
+        <div className='alert alert-danger container text-center mt-5'>
+            <h1>404 - Not Found!</h1>
+        </div>
+    )
+}
 
 const Layout = () => {
     return (
@@ -20,6 +28,8 @@ const Layout = () => {
                     <Route path='/users' element={<ListQuiz />} />
                 </Route>
 
+                <Route path='/quiz/:id' element={<DetailQuiz />} />
+                
                 <Route path='/admins' element={<Admin />}>
                     <Route index element={<DashBoard />} />
                     <Route path='manage-user' element={<ManageUser />} />
@@ -27,6 +37,8 @@ const Layout = () => {
 
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
+
+                <Route path='*' element={<NotFound />}  />
             </Routes>
             <ToastContainer
                 position="top-right"
