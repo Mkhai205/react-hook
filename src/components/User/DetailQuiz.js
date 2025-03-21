@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getDataQuiz } from "../../services/apiService";
+import { getDataQuiz, postSubmitQuiz } from "../../services/apiService";
 import _ from 'lodash';
 import './DetailQuiz.scss';
 import { useLocation } from "react-router-dom";
 import Question from "./Question";
+import ModalResult from "./ModalResult";
+import { toast } from "react-toastify";
+import { set } from "nprogress";
 
 const DetailQuiz = (props) => {
     const params = useParams();
@@ -13,6 +16,8 @@ const DetailQuiz = (props) => {
 
     const [dataQuiz, setDataQuiz] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [showResult, setShowResult] = useState(false);
+    const [dataModal, setDataModal] = useState({});
 
     useEffect(() => {
         fetchQuestions();
@@ -68,27 +73,40 @@ const DetailQuiz = (props) => {
         setDataQuiz(dataQuizClone);
     }
 
-    const handleFinish = () => {
+    const handleFinish = async () => {
         let dataSubmit = {
             quizId: parseInt(quizId),
             answers: []
         };
 
         dataQuiz.forEach((question) => {
-            let answer = []; 
+            let answer = [];
             question.answers.forEach((item) => {
                 if (item.isSelected) {
                     answer.push(item.id);
                 }
             });
             dataSubmit.answers.push({
-                questionId: question.questionId,
+                questionId: parseInt(question.questionId),
                 userAnswerId: answer
             });
         });
 
-        console.log("🚀 ~ DetailQuiz.js:77 ~ handleFinish ~ dataSubmit:", dataSubmit);
-        
+        // call api submit quiz
+        const res = await postSubmitQuiz(dataSubmit);
+
+        // redirect to result page
+        if (res && res.EC === 0) {
+            setDataModal({
+                totalQuestion: res.DT.countTotal,
+                correctAnswer: res.DT.countCorrect,
+                quizData: res.DT.quizData,
+            });
+            setShowResult(true);
+        } else {
+            toast.error('Submit quiz failed!');
+        }
+
     }
 
     return (
@@ -129,6 +147,11 @@ const DetailQuiz = (props) => {
             <div className="right-container container">
                 clock
             </div>
+            <ModalResult
+                show={showResult}
+                setShow={setShowResult}
+                dataModal={dataModal}
+            />
         </div>
     )
 }
