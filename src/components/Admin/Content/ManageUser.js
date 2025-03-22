@@ -57,6 +57,9 @@ const ManageUser = (props) => {
             <div className="manager-user-header">
                 <h1 className='title'>Manager User</h1>
             </div>
+
+            <hr />
+
             <div className="manager-user-main">
                 <div className='btn-create-user'>
                     <button

@@ -1,0 +1,113 @@
+.manage-quiz-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .manage-quiz-header {
+        .title {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+            animation: slideIn 0.5s ease-in-out;
+
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateX(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+        }
+    }
+
+    .add-new {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 0.5s ease-in-out;
+
+        legend {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        .form-floating {
+            margin-bottom: 20px;
+
+            .form-control {
+                border-radius: 4px;
+                padding: 10px;
+                font-size: 16px;
+                transition: border-color 0.3s;
+
+                &:focus {
+                    border-color: #007bff;
+                    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+                }
+            }
+
+            label {
+                font-size: 16px;
+                color: #495057;
+            }
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: background-color 0.3s, transform 0.3s;
+
+            &.btn-primary {
+                background-color: #007bff;
+                border-color: #007bff;
+                color: #fff;
+
+                &:hover {
+                    background-color: #0056b3;
+                    border-color: #0056b3;
+                    transform: translateY(-2px);
+                }
+
+                &:active {
+                    background-color: #004085;
+                    border-color: #004085;
+                    transform: translateY(0);
+                }
+            }
+        }
+    }
+
+    .list-detail {
+        margin-top: 20px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 0.5s ease-in-out;
+    }
+}

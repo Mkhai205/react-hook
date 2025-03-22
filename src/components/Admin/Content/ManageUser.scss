@@ -1,21 +1,83 @@
 .manager-user-container {
-    padding: 10px 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
     .manager-user-header {
         .title {
-            font-size: 24px;
+            font-size: 32px;
             font-weight: 600;
             margin-bottom: 20px;
             color: #333;
+            text-align: center;
+            animation: slideIn 0.5s ease-in-out;
+
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateX(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
         }
     }
 
     .manager-user-main {
         .btn-create-user {
             margin: 10px 0;
+            display: flex;
+            justify-content: center;
+
+            button {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                padding: 10px 20px;
+                font-size: 16px;
+                font-weight: 600;
+                border-radius: 4px;
+                transition: background-color 0.3s, transform 0.3s;
+
+                &.btn-primary {
+                    background-color: #007bff;
+                    border-color: #007bff;
+                    color: #fff;
+
+                    &:hover {
+                        background-color: #0056b3;
+                        border-color: #0056b3;
+                        transform: translateY(-2px);
+                    }
+
+                    &:active {
+                        background-color: #004085;
+                        border-color: #004085;
+                        transform: translateY(0);
+                    }
+                }
+            }
         }
+
         .table-users-container {
             .pagination {
                 justify-content: center;
+                margin-top: 20px;
             }
         }
     }
@@ -31,6 +93,7 @@
         justify-content: center;
         align-items: center;
         color: #ccc;
+        animation: fadeIn 0.5s ease-in-out;
 
         img {
             width: 60%;
@@ -49,6 +112,8 @@
         gap: 6px;
         width: fit-content;
         cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+
         &:hover {
             background-color: #f0f0f0;
             transform: scale(1.05);
