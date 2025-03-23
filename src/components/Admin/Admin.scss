@@ -1,11 +1,14 @@
 .admin-container {
     display: flex;
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
     .admin-sidebar {
         .pro-sidebar {
             height: 100vh;
         }
     }
-    
+
     .admin-content {
         width: 100%;
         .admin-header {
@@ -13,7 +16,8 @@
         }
 
         .admin-main {
-            
+            height: 100vh;
+            overflow: auto;
         }
     }
 }
