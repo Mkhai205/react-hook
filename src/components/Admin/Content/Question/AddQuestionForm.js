@@ -48,7 +48,7 @@ const QuizQuestionForm = (props) => {
             toast.error(res.EM);
         }
     }
-    
+
 
     // Get current question
     const currentQuestion = questions[currentQuestionIndex]
@@ -152,6 +152,7 @@ const QuizQuestionForm = (props) => {
         setSuccessMessage("Question saved! Now add another one.")
         setShowSuccess(true)
         setTimeout(() => setShowSuccess(false), 3000)
+        toast.success("Question saved! Now add another one.")
     }
 
     // Remove current question
@@ -225,23 +226,28 @@ const QuizQuestionForm = (props) => {
         }
 
         // Call API to save all questions
-        const resQuestions = await Promise.all(questions.map(async (q) => {
-            const res = await postCreateNewQuestionForQuiz(parseInt(selectedQuiz), q.question, q.image);
-            if(res?.EC === 0) {
-                await Promise.all(q.answers.map(async (a) => {
-                    return await postCreateNewAnswerForQuestion(res.DT.id, a.text, a.isCorrect);
-                }));
-            }
-        }));
+        // 
 
-        if (resQuestions) {
-            setSuccessMessage("All questions saved successfully!")
-            setShowSuccess(true)
-            setTimeout(() => setShowSuccess(false), 3000)
-            toast.success("Questions saved successfully")
-        } else {
-            toast.error("Failed to save questions")
+        for (const question of questions) {
+            const resQuestion = await postCreateNewQuestionForQuiz(selectedQuiz, question.question, question.image);
+            if (resQuestion && resQuestion.EC === 0) {
+                for (const answer of question.answers) {
+                    const resAnswer = await postCreateNewAnswerForQuestion(resQuestion.DT.id, answer.text, answer.isCorrect);
+                    if (resAnswer && resAnswer.EC !== 0) {
+                        toast.error(resAnswer.EM);
+                        return;
+                    }
+                }
+            } else {
+                toast.error(resQuestion.EM);
+                return;
+            }
         }
+
+        setSuccessMessage("All questions saved successfully!")
+        setShowSuccess(true)
+        setTimeout(() => setShowSuccess(false), 3000)
+        toast.success("Questions saved successfully")
     }
 
     // Get selected quiz name
