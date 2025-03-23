@@ -55,7 +55,7 @@ const ManageUser = (props) => {
     return (
         <div className="manager-user-container">
             <div className="manager-user-header">
-                <h1 className='title'>Manager User</h1>
+                Manager User
             </div>
 
             <hr />

@@ -1,5 +1,5 @@
 .manager-user-container {
-    padding: 20px;
+    padding: 8px 20px;
     background-color: #f8f9fa;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -8,34 +8,20 @@
     @keyframes fadeIn {
         from {
             opacity: 0;
-            transform: translateY(-20px);
+            transform: translateX(-20px);
         }
         to {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(0);
         }
     }
 
     .manager-user-header {
-        .title {
-            font-size: 32px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #333;
-            text-align: center;
-            animation: slideIn 0.5s ease-in-out;
-
-            @keyframes slideIn {
-                from {
-                    opacity: 0;
-                    transform: translateX(-20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateX(0);
-                }
-            }
-        }
+        font-size: 30px;
+        font-weight: 600;
+        color: #333;
+        text-align: center;
+        animation: fadeIn 0.5s ease-in-out;
     }
 
     .manager-user-main {
@@ -52,7 +38,9 @@
                 font-size: 16px;
                 font-weight: 600;
                 border-radius: 4px;
-                transition: background-color 0.3s, transform 0.3s;
+                transition:
+                    background-color 0.3s,
+                    transform 0.3s;
 
                 &.btn-primary {
                     background-color: #007bff;
@@ -112,7 +100,9 @@
         gap: 6px;
         width: fit-content;
         cursor: pointer;
-        transition: background-color 0.3s, transform 0.3s;
+        transition:
+            background-color 0.3s,
+            transform 0.3s;
 
         &:hover {
             background-color: #f0f0f0;
