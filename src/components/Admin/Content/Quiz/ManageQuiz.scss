@@ -4,6 +4,8 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     animation: fadeIn 0.5s ease-in-out;
+    max-height: 96vh;
+    overflow-y: auto;
 
     @keyframes fadeIn {
         from {
@@ -82,11 +84,19 @@
         }
     }
 
+    .title {
+        font-size: 24px;
+        font-weight: 600;
+        margin: 20px;
+        color: #333;
+        text-align: center;
+    }
+
     .list-detail {
         animation: fadeIn 0.5s ease-in-out;
         height: calc(100vh - 200px);
         overflow-y: auto;
-        margin-bottom: 20px;
+        margin-bottom: 20px; 
 
         table {
             width: 100%;

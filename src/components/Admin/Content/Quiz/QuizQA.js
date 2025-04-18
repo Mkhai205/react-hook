@@ -28,7 +28,7 @@ const EMPTY_QUESTION = {
     ],
 };
 
-const QuizQuestionForm = (props) => {
+const QuizQA = (props) => {
     const [listQuiz, setListQuiz] = useState([]);
     const [selectedQuiz, setSelectedQuiz] = useState("");
     const [questions, setQuestions] = useState([{ ...EMPTY_QUESTION }]);
@@ -287,7 +287,7 @@ const QuizQuestionForm = (props) => {
         <Container>
             <Card className="mx-auto mb-4" style={{ maxWidth: "1000px" }}>
                 <Card.Header className="d-flex justify-content-between align-items-center">
-                    <Card.Title>Add Questions to Quiz</Card.Title>
+                    <Card.Title>Update Questions to Quiz</Card.Title>
                     <Badge bg="primary" className="fs-6">
                         Question {currentQuestionIndex + 1} of {questions.length}
                     </Badge>
@@ -521,4 +521,4 @@ const QuizQuestionForm = (props) => {
     );
 };
 
-export default QuizQuestionForm;
+export default QuizQA;
