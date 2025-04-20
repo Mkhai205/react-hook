@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { getAllQuizForAdmin, getAllUsers } from "../../../../services/apiService";
+import {
+    getAllQuizForAdmin,
+    getAllUsers,
+    postAssignQuizToUser,
+} from "../../../../services/apiService";
 import { toast } from "react-toastify";
 import { Form } from "react-bootstrap";
 
@@ -19,7 +23,7 @@ const AssignQuiz = (props) => {
         const res = await getAllQuizForAdmin();
         if (res && res.EC === 0) {
             const newQuiz = res.DT.map((item) => {
-                return { id: item.id, title: `${item.id} - ${item.description}` };
+                return { value: item.id, label: `${item.id} - ${item.name}` };
             });
             setListQuiz(newQuiz);
         } else {
@@ -31,11 +35,29 @@ const AssignQuiz = (props) => {
         const res = await getAllUsers();
         if (res && res.EC === 0) {
             const newUser = res.DT.map((item) => {
-                return { id: item.id, title: `${item.id} - ${item.username} - ${item.email}` };
+                return { value: item.id, label: `${item.id} - ${item.username} - ${item.email}` };
             });
             setListUser(newUser);
         } else {
             toast.error(res.EM);
+        }
+    };
+
+    const handleAssign = async () => {
+        if (!selectedQuiz || !selectedUser) {
+            toast.error("Please select both a quiz and a user.");
+            return;
+        }
+
+        const res = await postAssignQuizToUser(selectedQuiz, selectedUser);
+
+        // Add feedback based on the response
+        if (res && res.EC === 0) {
+            toast.success(res.EM);
+            setSelectedQuiz('');
+            setSelectedUser('');
+        } else {
+            toast.error(res.EM || "Failed to assign quiz.");
         }
     };
 
@@ -52,9 +74,9 @@ const AssignQuiz = (props) => {
                             onChange={(e) => setSelectedQuiz(e.target.value)}
                         >
                             <option value="">Select a quiz</option>
-                            {listQuiz.map((quiz) => (
-                                <option key={quiz.id} value={quiz.id}>
-                                    {quiz.title}
+                            {listQuiz?.map((quiz) => (
+                                <option key={quiz.value} value={quiz.value}>
+                                    {quiz.label}
                                 </option>
                             ))}
                         </Form.Select>
@@ -69,9 +91,9 @@ const AssignQuiz = (props) => {
                             onChange={(e) => setSelectedUser(e.target.value)}
                         >
                             <option value="">Select a user</option>
-                            {listUser.map((user) => (
-                                <option key={user.id} value={user.id}>
-                                    {user.title}
+                            {listUser?.map((user) => (
+                                <option key={user.value} value={user.value}>
+                                    {user.label}
                                 </option>
                             ))}
                         </Form.Select>
@@ -79,7 +101,9 @@ const AssignQuiz = (props) => {
                 </div>
 
                 <div className="text-center">
-                    <button className="btn btn-primary px-4">Assign</button>
+                    <button type="button" className="btn btn-primary px-4" onClick={handleAssign}>
+                        Assign
+                    </button>
                 </div>
             </Form>
         </div>

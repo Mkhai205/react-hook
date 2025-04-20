@@ -7,7 +7,6 @@ import { useLocation } from "react-router-dom";
 import Question from "./Question";
 import ModalResult from "./ModalResult";
 import { toast } from "react-toastify";
-import { set } from "nprogress";
 
 const DetailQuiz = (props) => {
     const params = useParams();

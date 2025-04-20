@@ -70,7 +70,7 @@ const ManageQuiz = (props) => {
         if (res && res.EC === 0) {
             toast.success(res.EM);
             setDefault();
-            setActiveKey('1'); // Switch to the List Quizzes tab
+            setActiveKey('2'); // Switch to the List Quizzes tab
             fetchListQuiz(); // Refresh the list of quizzes
         } else {
             toast.error(res.EM);

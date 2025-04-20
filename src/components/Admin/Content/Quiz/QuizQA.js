@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Form, Button, Card, Container, Row, Col, Badge, Alert, Pagination } from "react-bootstrap";
 import { FaUpload, FaTimes, FaPlus, FaTrash, FaSave } from "react-icons/fa";
-import { getAllQuizForAdmin } from "../../../../services/apiService";
+import { getAllQuizForAdmin, getQuizWithQA } from "../../../../services/apiService";
 import { toast } from "react-toastify";
 import {
     postCreateNewQuestionForQuiz,
@@ -32,6 +32,9 @@ const QuizQA = (props) => {
     const [listQuiz, setListQuiz] = useState([]);
     const [selectedQuiz, setSelectedQuiz] = useState("");
     const [questions, setQuestions] = useState([{ ...EMPTY_QUESTION }]);
+
+    // console.log("🚀 ~ QuizQA.js:36 ~ QuizQA ~ questions:", questions);
+
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [showSuccess, setShowSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
@@ -39,6 +42,12 @@ const QuizQA = (props) => {
     useEffect(() => {
         fetchListQuiz();
     }, []);
+
+    useEffect(() => {
+        if (selectedQuiz) {
+            fetchQuestionsByQuiz(selectedQuiz);
+        }
+    }, [selectedQuiz]);
 
     const fetchListQuiz = async () => {
         const res = await getAllQuizForAdmin();
@@ -50,6 +59,54 @@ const QuizQA = (props) => {
         } else {
             toast.error(res.EM);
         }
+    };
+
+    const fetchQuestionsByQuiz = async (quizId) => {
+        const res = await getQuizWithQA(quizId);
+
+        console.log("🚀 ~ QuizQA.js:67 ~ fetchQuestionsByQuiz ~ res:", res);
+
+        if (res && res.EC === 0) {
+            const newQues = [];
+            for (let i = 0; i < res.DT.qa.length; i++) {
+                const ques = res.DT.qa[i];
+                const file = await urlToFile(
+                    `data:image/png;base64,${ques.imageFile}`, 
+                    `${ques.id}.png`, // Use question ID for unique filename
+                    'image/png'
+                );
+                const question = ques.description ?? ""; // Default to empty string
+                const answers = (ques.answers || []).map((answer) => ({
+                    text: answer.description ?? "", // Default to empty string
+                    isCorrect: answer.isCorrect ?? false, // Default to false
+                }));
+                newQues.push({
+                    question,
+                    image: file,
+                    answers,
+                });
+            }
+
+            // If fetchedQuestions is empty, set a default empty question structure
+            if (newQues.length > 0) {
+                setQuestions(newQues);
+            } else {
+                setQuestions([{ ...EMPTY_QUESTION }]); // Set default if no questions found
+            }
+            setCurrentQuestionIndex(0); // Reset to the first question
+        } else {
+            // Handle API error, maybe clear questions or show a message
+            toast.error(res?.EM || "Failed to fetch questions.");
+            setQuestions([{ ...EMPTY_QUESTION }]); // Reset to default on error
+            setCurrentQuestionIndex(0);
+        }
+    };
+
+    // return a promise that resolves with a File instance
+    const urlToFile = (url, filename, mimeType) => {
+        return fetch(url)
+            .then((res) => res.arrayBuffer())
+            .then((buf) => new File([buf], filename, { type: mimeType }));
     };
 
     // Get current question
@@ -361,7 +418,7 @@ const QuizQA = (props) => {
                                             as="textarea"
                                             rows={4}
                                             placeholder="Enter your question here"
-                                            value={currentQuestion.question}
+                                            value={currentQuestion?.question}
                                             onChange={(e) => handleQuestionChange(e.target.value)}
                                         />
                                     </Form.Group>
@@ -372,7 +429,7 @@ const QuizQA = (props) => {
                                     <Form.Group className="d-flex flex-column justify-content-center align-items-center mb-4">
                                         <Form.Label>Upload Image</Form.Label>
                                         <div className="d-flex justify-content-center mb-3">
-                                            {!currentQuestion.image ? (
+                                            {!currentQuestion?.image ? (
                                                 <div
                                                     className="d-flex flex-column justify-content-center align-items-center border border-2 border-dashed rounded p-3"
                                                     style={{
@@ -407,7 +464,7 @@ const QuizQA = (props) => {
                                                     <img
                                                         src={
                                                             URL.createObjectURL(
-                                                                currentQuestion.image
+                                                                currentQuestion?.image
                                                             ) || "/placeholder.svg"
                                                         }
                                                         alt="Question img preview"
@@ -455,7 +512,7 @@ const QuizQA = (props) => {
                                             </Button>
                                         </div>
 
-                                        {currentQuestion.answers.map((answer, index) => (
+                                        {currentQuestion?.answers.map((answer, index) => (
                                             <div
                                                 key={index}
                                                 className="d-flex align-items-start mb-2 gap-2"
@@ -478,7 +535,7 @@ const QuizQA = (props) => {
                                                     }
                                                     className="flex-grow-1"
                                                 />
-                                                {currentQuestion.answers.length > 2 && (
+                                                {currentQuestion?.answers.length > 2 && (
                                                     <Button
                                                         variant="danger"
                                                         size="sm"
