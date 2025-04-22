@@ -1,0 +1,14 @@
+.modal-view-image {
+    .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .full-size-image {
+        max-width: 100%;
+        max-height: 80vh;
+        object-fit: contain;
+    }
+}

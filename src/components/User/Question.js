@@ -1,7 +1,10 @@
 import _ from 'lodash';
+import { useState } from 'react';
+import ModalViewImage from '../Admin/Content/Quiz/ModalViewImage';
 
 const Question = (props) => {
     const { data, currentQuestion } = props;
+    const [showImageModal, setShowImageModal] = useState(false);
 
     if (_.isEmpty(data)) {
         return <></>;
@@ -12,10 +15,22 @@ const Question = (props) => {
         props.handleAnswer(answerId);
     }
 
+    const handleImageClick = () => {
+        if (data.image) {
+            setShowImageModal(true);
+        }
+    }
+
     return (
         <>
             {data.image ? 
-            <img src={`data:image/jpg;base64, ${data.image}`} alt="quiz-img" className="q-image" />
+            <img 
+                src={`data:image/jpg;base64, ${data.image}`} 
+                alt="quiz-img" 
+                className="q-image" 
+                onClick={handleImageClick}
+                style={{ cursor: 'pointer' }}
+            />
             :
             <div className='q-image'></div>
             }
@@ -41,6 +56,12 @@ const Question = (props) => {
                     </form>
                 </div>
             </div>
+
+            <ModalViewImage 
+                show={showImageModal}
+                setShow={setShowImageModal}
+                imageUrl={`data:image/jpg;base64, ${data.image}`}
+            />
         </>
     )
 }

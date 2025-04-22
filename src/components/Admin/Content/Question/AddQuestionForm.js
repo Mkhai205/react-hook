@@ -9,6 +9,7 @@ import {
     postCreateNewQuestionForQuiz,
     postCreateNewAnswerForQuestion,
 } from "../../../../services/apiService";
+import ModalViewImage from "../Quiz/ModalViewImage";
 
 // Sample quiz data - replace with your actual data source
 // const SAMPLE_QUIZZES = [
@@ -35,6 +36,7 @@ const QuizQuestionForm = (props) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [showSuccess, setShowSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
+    const [showImageModal, setShowImageModal] = useState(false);
 
     useEffect(() => {
         fetchListQuiz();
@@ -263,6 +265,13 @@ const QuizQuestionForm = (props) => {
         toast.success("Questions saved successfully");
     };
 
+    // Handle image click to show modal
+    const handleImageClick = () => {
+        if (currentQuestion?.image) {
+            setShowImageModal(true);
+        }
+    };
+
     // Get selected quiz name
     // const getSelectedQuizName = () => {
     //     const quiz = SAMPLE_QUIZZES.find((q) => q.id === selectedQuiz)
@@ -412,6 +421,7 @@ const QuizQuestionForm = (props) => {
                                                         }
                                                         alt="Question img preview"
                                                         className="img-fluid rounded"
+                                                        onClick={handleImageClick}
                                                         style={{
                                                             width: "100%",
                                                             height: "100%",
@@ -517,6 +527,14 @@ const QuizQuestionForm = (props) => {
                     </div>
                 </Card.Body>
             </Card>
+
+            <ModalViewImage
+                show={showImageModal}
+                setShow={setShowImageModal}
+                imageUrl={
+                    currentQuestion?.image ? URL.createObjectURL(currentQuestion.image) : null
+                }
+            />
         </Container>
     );
 };

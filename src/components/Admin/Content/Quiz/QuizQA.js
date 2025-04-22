@@ -3,12 +3,9 @@
 import { useEffect, useState } from "react";
 import { Form, Button, Card, Container, Row, Col, Badge, Alert, Pagination } from "react-bootstrap";
 import { FaUpload, FaTimes, FaPlus, FaTrash, FaSave } from "react-icons/fa";
-import { getAllQuizForAdmin, getQuizWithQA } from "../../../../services/apiService";
+import { getAllQuizForAdmin, getQuizWithQA, postUpsertQA } from "../../../../services/apiService";
 import { toast } from "react-toastify";
-import {
-    postCreateNewQuestionForQuiz,
-    postCreateNewAnswerForQuestion,
-} from "../../../../services/apiService";
+import ModalViewImage from "./ModalViewImage";
 
 // Sample quiz data - replace with your actual data source
 // const SAMPLE_QUIZZES = [
@@ -20,11 +17,12 @@ import {
 
 // Empty question template
 const EMPTY_QUESTION = {
+    id: "",
     question: "",
     image: null,
     answers: [
-        { text: "", isCorrect: false },
-        { text: "", isCorrect: false },
+        { id: "", text: "", isCorrect: false },
+        { id: "", text: "", isCorrect: false },
     ],
 };
 
@@ -33,11 +31,12 @@ const QuizQA = (props) => {
     const [selectedQuiz, setSelectedQuiz] = useState("");
     const [questions, setQuestions] = useState([{ ...EMPTY_QUESTION }]);
 
-    // console.log("🚀 ~ QuizQA.js:36 ~ QuizQA ~ questions:", questions);
+    // console.log("🚀 ~ QuizQA.js:35 ~ QuizQA ~ questions:", questions);
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [showSuccess, setShowSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
+    const [showImageModal, setShowImageModal] = useState(false);
 
     useEffect(() => {
         fetchListQuiz();
@@ -64,23 +63,25 @@ const QuizQA = (props) => {
     const fetchQuestionsByQuiz = async (quizId) => {
         const res = await getQuizWithQA(quizId);
 
-        console.log("🚀 ~ QuizQA.js:67 ~ fetchQuestionsByQuiz ~ res:", res);
+        // console.log("🚀 ~ QuizQA.js:66 ~ fetchQuestionsByQuiz ~ res:", res);
 
         if (res && res.EC === 0) {
             const newQues = [];
             for (let i = 0; i < res.DT.qa.length; i++) {
                 const ques = res.DT.qa[i];
                 const file = await urlToFile(
-                    `data:image/png;base64,${ques.imageFile}`, 
+                    `data:image/png;base64,${ques.imageFile}`,
                     `${ques.id}.png`, // Use question ID for unique filename
-                    'image/png'
+                    "image/png"
                 );
                 const question = ques.description ?? ""; // Default to empty string
                 const answers = (ques.answers || []).map((answer) => ({
+                    id: answer.id ?? "", // Default to empty string
                     text: answer.description ?? "", // Default to empty string
                     isCorrect: answer.isCorrect ?? false, // Default to false
                 }));
                 newQues.push({
+                    id: ques.id,
                     question,
                     image: file,
                     answers,
@@ -142,6 +143,13 @@ const QuizQA = (props) => {
             image: null,
         };
         setQuestions(updatedQuestions);
+    };
+
+    // Handle image click to show modal
+    const handleImageClick = () => {
+        if (currentQuestion?.image) {
+            setShowImageModal(true);
+        }
     };
 
     // Handle answer text change
@@ -280,44 +288,78 @@ const QuizQA = (props) => {
         return true;
     };
 
-    // Save all questions
+    const toBase64 = (file) =>
+        new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = reject;
+        });
+
     const saveAllQuestions = async () => {
         // Validate current question
         if (!validateCurrentQuestion()) {
             return;
         }
 
-        // Call API to save all questions
-        //
+        let data = {
+            quizId: selectedQuiz,
+            questions: [],
+        };
 
-        for (const question of questions) {
-            const resQuestion = await postCreateNewQuestionForQuiz(
-                selectedQuiz,
-                question.question,
-                question.image
-            );
-            if (resQuestion && resQuestion.EC === 0) {
-                for (const answer of question.answers) {
-                    const resAnswer = await postCreateNewAnswerForQuestion(
-                        resQuestion.DT.id,
-                        answer.text,
-                        answer.isCorrect
-                    );
-                    if (resAnswer && resAnswer.EC !== 0) {
-                        toast.error(resAnswer.EM);
-                        return;
-                    }
+        for (let i = 0; i < questions.length; i++) {
+            const question = questions[i];
+            const questionData = {
+                id: question.id,
+                description: question.question,
+                imageFile: "",
+                imageName: "",
+                answers: [],
+            };
+
+            // Convert image to base64 if it exists
+            if (question.image) {
+                try {
+                    const base64Image = await toBase64(question.image);
+                    questionData.imageFile = base64Image;
+                } catch (error) {
+                    console.error("Error converting image to base64:", error);
+                    toast.error("Error processing image");
+                    return;
                 }
-            } else {
-                toast.error(resQuestion.EM);
-                return;
             }
+
+            for (let j = 0; j < question.answers.length; j++) {
+                const answer = question.answers[j];
+                questionData.answers.push({
+                    id: answer.id,
+                    description: answer.text,
+                    isCorrect: answer.isCorrect,
+                });
+            }
+
+            data.questions.push(questionData);
         }
 
-        setSuccessMessage("All questions saved successfully!");
-        setShowSuccess(true);
-        setTimeout(() => setShowSuccess(false), 3000);
-        toast.success("Questions saved successfully");
+        // console.log("🚀 ~ QuizQA.js:294 ~ saveAllQuestions ~ data:", data);
+
+        try {
+            const res = await postUpsertQA(data);
+            if (res && res.EC === 0) {
+                setSuccessMessage("All questions saved successfully!");
+                setShowSuccess(true);
+                setTimeout(() => setShowSuccess(false), 3000);
+                toast.success("Questions saved successfully");
+                
+                // Refetch the questions to get the updated IDs
+                fetchQuestionsByQuiz(selectedQuiz);
+            } else {
+                toast.error(res.EM || "Failed to save questions");
+            }
+        } catch (error) {
+            console.error("Error saving questions:", error);
+            toast.error("An error occurred while saving questions");
+        }
     };
 
     // Get selected quiz name
@@ -474,6 +516,7 @@ const QuizQA = (props) => {
                                                             height: "100%",
                                                             objectFit: "cover",
                                                         }}
+                                                        onClick={handleImageClick}
                                                     />
                                                     <Button
                                                         variant="danger"
@@ -574,6 +617,11 @@ const QuizQA = (props) => {
                     </div>
                 </Card.Body>
             </Card>
+            <ModalViewImage
+                show={showImageModal}
+                setShow={setShowImageModal}
+                imageUrl={currentQuestion?.image ? URL.createObjectURL(currentQuestion.image) : null}
+            />
         </Container>
     );
 };
