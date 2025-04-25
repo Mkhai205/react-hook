@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import Question from "./Question";
 import ModalResult from "./ModalResult";
 import { toast } from "react-toastify";
+import RightContent from "./Content/RightContent";
 
 const DetailQuiz = (props) => {
     const params = useParams();
@@ -51,6 +52,10 @@ const DetailQuiz = (props) => {
         if (currentQuestion < dataQuiz.length - 1) {
             setCurrentQuestion(currentQuestion + 1);
         }
+    }
+
+    const handleQuestion = (index) => {   
+        setCurrentQuestion(index);
     }
 
     const handlePrev = () => {
@@ -144,7 +149,12 @@ const DetailQuiz = (props) => {
                 </div>
             </div>
             <div className="right-container container">
-                clock
+                <RightContent 
+                    dataQuiz={dataQuiz}
+                    currentQuestion={currentQuestion}
+                    handleQuestion={handleQuestion}
+                    handleFinish={handleFinish}
+                />
             </div>
             <ModalResult
                 show={showResult}
