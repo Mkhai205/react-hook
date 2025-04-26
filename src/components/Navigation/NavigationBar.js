@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { postLogout } from "../../services/apiService";
 import { toast } from "react-toastify";
 import { doLogout } from "../../redux/action/userAction";
+import Language from "./Language";
 
 const NavigationBar = (props) => {
     const account = useSelector((state) => state.user.account);
@@ -29,7 +30,7 @@ const NavigationBar = (props) => {
 
     const handleLogout = async () => {
         const res = await postLogout(account.email, account.access_token);
-        
+
         if (res && res.EC === 0) {
             // clear data redux
             dispatch(doLogout());
@@ -38,13 +39,10 @@ const NavigationBar = (props) => {
             localStorage.removeItem("refresh_token");
             localStorage.removeItem("user");
             localStorage.removeItem("persist:root");
-            // navigate to home page
-            navigate("/login");
             toast.success("Logout success!");
         } else {
             toast.error(res.EM);
         }
-
     };
 
     return (
@@ -87,6 +85,8 @@ const NavigationBar = (props) => {
                                 </NavDropdown>
                             </>
                         )}
+
+                        <Language />
                     </Nav>
                 </Navbar.Collapse>
             </Container>

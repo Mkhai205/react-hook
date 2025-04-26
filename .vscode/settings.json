@@ -1,5 +1,7 @@
 {
     "cSpell.enabledFileTypes": {
-        "javascript": false
-    }
+        "javascript": false,
+        "json": false
+    },
+    "commentTranslate.targetLanguage": "vi"
 }

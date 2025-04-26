@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { postRegister } from '../../services/apiService';
 import { toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import Language from '../Navigation/Language';
 
 const Register = (props) => {
     const navigate = useNavigate();
@@ -50,6 +51,7 @@ const Register = (props) => {
                     className='btn login'
                     onClick={() => navigate('/login')}
                 >Log in</button>
+                <Language />
             </div>
             <div className='btn btn-light go-back' onClick={() => navigate('/')}>
                 <TiArrowBack fontSize={'24px'} /> Go back home

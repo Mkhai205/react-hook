@@ -103,12 +103,15 @@ const getQuizWithQA = async (quizId) => {
     return axios.get(`api/v1/quiz-with-qa/${quizId}`);
 };
 
-const postUpsertQA = (data) => {
+const postUpsertQA = async (data) => {
     return axios.post("api/v1/quiz-upsert-qa", {...data});
 };
 
-const postLogout = (email, refresh_token) => {
+const postLogout = async (email, refresh_token) => {
     return axios.post("api/v1/logout", { email, refresh_token });
+}
+const getDataOverview = async () => {
+    return axios.get("api/v1/overview");
 }
 
 export {
@@ -132,4 +135,5 @@ export {
     getQuizWithQA,
     postUpsertQA,
     postLogout,
+    getDataOverview,
 };

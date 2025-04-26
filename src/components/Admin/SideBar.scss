@@ -1,13 +1,23 @@
+// Variables
+$primary-color: #3498db;
+$secondary-color: #2c3e50;
+$sidebar-text: #f8f9fa;
+$hover-color: #00bfff;
+$transition-speed: 0.3s;
+
 .app-logo {
-    color: #00bfff;
+    color: $hover-color;
     font-size: 2.4rem;
     font-weight: 600;
+    margin-right: 10px;
 }
+
 @media (prefers-reduced-motion: no-preference) {
     .app-logo {
         animation: app-logo-spin infinite 18s linear;
     }
 }
+
 @keyframes app-logo-spin {
     from {
         transform: rotate(0deg);
@@ -17,17 +27,99 @@
     }
 }
 
+// ProSidebar custom styling
+.pro-sidebar {
+    .pro-sidebar-inner {
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+        
+        .pro-sidebar-layout {
+            overflow-y: hidden;
+            
+            &:hover {
+                overflow-y: auto;
+                
+                &::-webkit-scrollbar {
+                    width: 5px;
+                }
+                
+                &::-webkit-scrollbar-thumb {
+                    background-color: darken($primary-color, 10%);
+                    border-radius: 4px;
+                }
+            }
+            
+            .pro-sidebar-header {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 0;
+                
+                > div {
+                    transition: $transition-speed;
+                    
+                    &:hover {
+                        color: $hover-color;
+                        background-color: rgba(255, 255, 255, 0.05);
+                    }
+                }
+            }
+            
+            .pro-sidebar-content {
+                padding-top: 10px;
+                
+                .pro-menu {
+                    .pro-menu-item {
+                        &.active {
+                            background-color: rgba(255, 255, 255, 0.1);
+                        }
+                        
+                        &:hover {
+                            background-color: rgba(255, 255, 255, 0.05);
+                        }
+                        
+                        .pro-inner-item {
+                            padding: 8px 35px 8px 20px;
+                            
+                            .pro-icon-wrapper {
+                                .pro-icon {
+                                    animation: none;
+                                    color: $sidebar-text;
+                                }
+                            }
+                            
+                            .pro-item-content {
+                                color: $sidebar-text;
+                            }
+                        }
+                    }
+                }
+                
+                .sub-menu {
+                    .menu-item {
+                        padding-left: 10px;
+                        transition: all $transition-speed;
+                        
+                        &:hover {
+                            transform: translateX(5px);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 .sidebar-btn-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 15px 10px;
+    
     .sidebar-btn {
-        transition: width 0.3s;
+        transition: all $transition-speed;
         width: 150px;
         padding: 1px 15px;
         border-radius: 40px;
-        background: rgba(255, 255, 255, 0.05);
-        color: #adadad;
+        background: rgba(255, 255, 255, 0.1);
+        color: $sidebar-text;
         text-decoration: none;
         margin: 0 auto;
         height: 35px;
@@ -36,12 +128,30 @@
         justify-content: center;
         text-overflow: ellipsis;
         overflow: hidden;
+        
         span {
-            margin-left: 5px;
+            margin-left: 8px;
             font-size: 13px;
         }
+        
         &:hover {
-            color: #fff;
+            background: rgba(255, 255, 255, 0.2);
+            color: $hover-color;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+    }
+}
+
+// Responsive adjustments
+@media screen and (max-width: 768px) {
+    .pro-sidebar {
+        width: 100% !important;
+        min-width: 100% !important;
+        
+        &.collapsed {
+            width: 80px !important;
+            min-width: 80px !important;
         }
     }
 }

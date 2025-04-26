@@ -1,112 +1,219 @@
-.manager-user-container {
-    padding: 8px 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.5s ease-in-out;
+// Variables
+$primary-color: #3498db;
+$secondary-color: #2c3e50;
+$accent-color: #e74c3c;
+$border-color: #e0e0e0;
+$text-color: #333;
+$light-bg: #f8f9fa;
+$transition-speed: 0.3s;
 
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateX(-20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-
-    .manager-user-header {
-        font-size: 30px;
-        font-weight: 600;
-        color: #333;
-        text-align: center;
-        animation: fadeIn 0.5s ease-in-out;
-    }
-
-    .manager-user-main {
-        .btn-create-user {
-            margin: 10px 0;
-            display: flex;
-            justify-content: center;
-
-            button {
-                display: flex;
-                align-items: center;
-                gap: 6px;
-                padding: 10px 20px;
-                font-size: 16px;
-                font-weight: 600;
-                border-radius: 4px;
-                transition:
-                    background-color 0.3s,
-                    transform 0.3s;
-
-                &.btn-primary {
-                    background-color: #007bff;
-                    border-color: #007bff;
-                    color: #fff;
-
-                    &:hover {
-                        background-color: #0056b3;
-                        border-color: #0056b3;
-                        transform: translateY(-2px);
-                    }
-
-                    &:active {
-                        background-color: #004085;
-                        border-color: #004085;
-                        transform: translateY(0);
-                    }
-                }
+.manage-user-container {
+    padding: 15px;
+    
+    .users-content {
+        .btn-add-new {
+            margin-bottom: 15px;
+            padding: 8px 16px;
+            background-color: $primary-color;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            transition: all $transition-speed;
+            
+            &:hover {
+                background-color: darken($primary-color, 10%);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            
+            i {
+                margin-right: 5px;
             }
         }
-
-        .table-users-container {
-            .pagination {
-                justify-content: center;
-                margin-top: 20px;
+        
+        .customize-table {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            
+            .table {
+                margin-bottom: 0;
+                
+                thead {
+                    background-color: $light-bg;
+                    
+                    th {
+                        padding: 12px 15px;
+                        font-weight: 600;
+                        color: $secondary-color;
+                        border-bottom: 2px solid $border-color;
+                    }
+                }
+                
+                tbody {
+                    tr {
+                        transition: background-color $transition-speed;
+                        
+                        &:hover {
+                            background-color: rgba($primary-color, 0.05);
+                        }
+                        
+                        td {
+                            padding: 12px 15px;
+                            vertical-align: middle;
+                            border-color: $border-color;
+                        }
+                    }
+                }
+                
+                .actions-cell {
+                    display: flex;
+                    gap: 10px;
+                    
+                    button {
+                        padding: 5px 10px;
+                        border: none;
+                        border-radius: 4px;
+                        transition: all $transition-speed;
+                        
+                        &:hover {
+                            transform: translateY(-2px);
+                        }
+                        
+                        &.btn-view {
+                            background-color: lighten($primary-color, 40%);
+                            color: $primary-color;
+                            
+                            &:hover {
+                                background-color: lighten($primary-color, 30%);
+                            }
+                        }
+                        
+                        &.btn-edit {
+                            background-color: lighten(#f39c12, 40%);
+                            color: #f39c12;
+                            
+                            &:hover {
+                                background-color: lighten(#f39c12, 30%);
+                            }
+                        }
+                        
+                        &.btn-delete {
+                            background-color: lighten($accent-color, 40%);
+                            color: $accent-color;
+                            
+                            &:hover {
+                                background-color: lighten($accent-color, 30%);
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 }
 
-.modal-create-user,
-.modal-update-user {
-    .img-preview {
-        height: 300px;
-        border: 2px dashed #ccc;
-        border-radius: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #ccc;
-        animation: fadeIn 0.5s ease-in-out;
-
-        img {
-            width: 60%;
-            height: 90%;
-            object-fit: cover;
-            border-radius: 10px;
+// Modal styling
+.modal-user-container {
+    .modal-content {
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        border: none;
+        
+        .modal-header {
+            background-color: $primary-color;
+            color: white;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            padding: 15px 20px;
+            
+            .modal-title {
+                font-weight: 600;
+            }
+            
+            .btn-close {
+                color: white;
+                opacity: 0.8;
+                
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+        
+        .modal-body {
+            padding: 20px;
+            
+            .form-group {
+                margin-bottom: 15px;
+                
+                label {
+                    font-weight: 500;
+                    margin-bottom: 5px;
+                    color: $secondary-color;
+                }
+                
+                .form-control {
+                    border-radius: 4px;
+                    border: 1px solid $border-color;
+                    padding: 8px 12px;
+                    transition: all $transition-speed;
+                    
+                    &:focus {
+                        border-color: $primary-color;
+                        box-shadow: 0 0 0 3px rgba($primary-color, 0.2);
+                    }
+                }
+            }
+        }
+        
+        .modal-footer {
+            border-top: 1px solid $border-color;
+            padding: 15px 20px;
+            
+            button {
+                padding: 8px 16px;
+                border-radius: 4px;
+                transition: all $transition-speed;
+                
+                &:hover {
+                    transform: translateY(-2px);
+                }
+                
+                &.btn-secondary {
+                    background-color: #6c757d;
+                    border: none;
+                    
+                    &:hover {
+                        background-color: darken(#6c757d, 10%);
+                    }
+                }
+                
+                &.btn-primary {
+                    background-color: $primary-color;
+                    border: none;
+                    
+                    &:hover {
+                        background-color: darken($primary-color, 10%);
+                    }
+                }
+            }
         }
     }
+}
 
-    .label-upload {
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 3px 6px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        width: fit-content;
-        cursor: pointer;
-        transition:
-            background-color 0.3s,
-            transform 0.3s;
-
-        &:hover {
-            background-color: #f0f0f0;
-            transform: scale(1.05);
+// Responsive adjustments
+@media screen and (max-width: 768px) {
+    .manage-user-container {
+        .users-content {
+            .customize-table {
+                overflow-x: auto;
+                
+                .table {
+                    min-width: 800px;
+                }
+            }
         }
     }
 }

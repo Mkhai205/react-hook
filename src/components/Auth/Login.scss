@@ -9,14 +9,15 @@
 
     .header {
         position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         top: 20px;
         right: 20px;
         font-size: 1rem;
-        span {
-            margin-right: 12px;
-        }
         .sign-up {
             border: 1.6px solid #007bff;
+            margin: 0 16px 0 16px;
         }
         .sign-up:hover {
             transform: scale(1.1);

@@ -1,23 +1,131 @@
+// Variables
+$primary-color: #3498db;
+$secondary-color: #2c3e50;
+$border-color: #e0e0e0;
+$sidebar-width: 250px;
+$collapsed-sidebar-width: 80px;
+$header-height: 60px;
+$transition-speed: 0.3s;
+
 .admin-container {
     display: flex;
     position: relative;
     height: 100vh;
     overflow: hidden;
+    background-color: #f8f9fa;
+    
     .admin-sidebar {
         .pro-sidebar {
             height: 100vh;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            transition: all $transition-speed ease;
         }
     }
 
     .admin-content {
         width: 100%;
+        transition: all $transition-speed ease;
+        
         .admin-header {
-            border: 1px solid #ccc;
+            height: $header-height;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid $border-color;
+            background-color: white;
+            padding: 0 20px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+
+            .admin-toggle {
+                font-size: 1.5rem;
+                cursor: pointer;
+                color: $secondary-color;
+                transition: color 0.2s;
+                
+                &:hover {
+                    color: $primary-color;
+                    transform: scale(1.1);
+                }
+            }
+
+            .admin-header-right {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                
+                .dropdown-toggle {
+                    background: transparent;
+                    color: $secondary-color;
+                    border: none;
+                    
+                    &:hover, &:focus {
+                        color: $primary-color;
+                    }
+                }
+                
+                .dropdown-menu {
+                    border-radius: 5px;
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                    
+                    .dropdown-item {
+                        padding: 8px 15px;
+                        transition: background-color 0.2s;
+                        
+                        &:hover {
+                            background-color: lighten($primary-color, 40%);
+                        }
+                    }
+                }
+            }
         }
 
         .admin-main {
-            height: 100vh;
+            height: calc(100vh - #{$header-height});
             overflow: auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            
+            &::-webkit-scrollbar {
+                width: 8px;
+            }
+            
+            &::-webkit-scrollbar-thumb {
+                background-color: lighten($secondary-color, 30%);
+                border-radius: 4px;
+                
+                &:hover {
+                    background-color: lighten($secondary-color, 20%);
+                }
+            }
+            
+            &::-webkit-scrollbar-track {
+                background-color: #f1f1f1;
+            }
+        }
+    }
+}
+
+// Media queries for responsive design
+@media screen and (max-width: 768px) {
+    .admin-container {
+        .admin-sidebar {
+            position: absolute;
+            z-index: 100;
+            height: 100%;
+        }
+        
+        .admin-content {
+            .admin-header {
+                padding: 0 10px;
+                
+                .admin-header-right {
+                    gap: 10px;
+                }
+            }
+            
+            .admin-main {
+                padding: 15px;
+            }
         }
     }
 }

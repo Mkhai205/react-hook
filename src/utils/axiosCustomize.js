@@ -1,10 +1,11 @@
 import axios from 'axios';
 import nProgress from 'nprogress';
 import { store } from '../redux/store';
-// import { get } from 'lodash';
 
 nProgress.configure({
     showSpinner: false,
+    trickle: true,
+    speed: 300,
     trickleSpeed: 100,
 });
 

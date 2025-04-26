@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { doLogin } from '../../redux/action/userAction';
 import { ImSpinner9 } from "react-icons/im";
 import 'nprogress/nprogress.css';
+import Language from '../Navigation/Language';
 
 
 const Login = (props) => {
@@ -61,6 +62,7 @@ const Login = (props) => {
                     className='btn sign-up'
                     onClick={() => navigate('/register')}
                 >Sign up</button>
+                <Language />
             </div>
             <div className='btn btn-light go-back' onClick={() => navigate('/')}>
                 <TiArrowBack fontSize={'24px'} /> Go back home

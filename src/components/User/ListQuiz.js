@@ -14,7 +14,7 @@ const ListQuiz = (props) => {
     const getQuizData = async () => {
         const response = await getQuizByUser();
 
-        console.log("🚀 ~ ListQuiz.js:15 ~ getQuizData ~ response:", response);
+        // console.log("🚀 ~ ListQuiz.js:15 ~ getQuizData ~ response:", response);
 
 
         if (response && response.EC === 0) {

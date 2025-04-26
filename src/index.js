@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter } from 'react-router-dom';
 import Layout from './Layout';
 import { PersistGate } from 'redux-persist/integration/react'
+import i18n from './utils/i18n'; // Import the i18n configuration
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
