@@ -92,6 +92,7 @@ const Login = (props) => {
                             id='password'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
                             autoComplete="current-password"
                         />
                     </div>

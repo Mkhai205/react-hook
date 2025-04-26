@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const HomePage = () => {
     const isAuthenticated = useSelector(state => state.user.isAuthenticated);
 
-    console.log("🚀 ~ HomePage.js:8 ~ HomePage ~ isAuthenticated:", isAuthenticated);
+    // console.log("🚀 ~ HomePage.js:8 ~ HomePage ~ isAuthenticated:", isAuthenticated);
 
     const navigate = useNavigate();
 

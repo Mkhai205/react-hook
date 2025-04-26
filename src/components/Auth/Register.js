@@ -95,6 +95,7 @@ const Register = (props) => {
                                 value={password}
                                 required
                                 onChange={(e) => setPassword(e.target.value)}
+                                onKeyDown={(e) => e.key === 'Enter' && handleRegister()}
                                 autoComplete="current-password"
                             />
                             <div
