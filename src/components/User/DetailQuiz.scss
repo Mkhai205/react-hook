@@ -1,0 +1,217 @@
+.detail-quiz-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+
+    .breadcrumb-container {
+        margin-bottom: 15px;
+        width: 100%;
+        
+        .breadcrumb {
+            background-color: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 5px;
+            
+            .breadcrumb-item {
+                font-size: 0.9rem;
+                
+                a {
+                    color: #007bff;
+                    text-decoration: none;
+                    
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+                
+                &.active {
+                    color: #6c757d;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+
+    .quiz-content {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .left-container {
+        border-radius: 6px;
+        width: 64%;
+        padding: 16px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        .q-body {
+            .q-title {
+                h2 {
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                    color: #343a40;
+                }
+            }
+
+            .q-image {
+                height: 300px;
+                margin-bottom: 20px;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .q-content {
+                p {
+                    font-size: 1.2rem;
+                    color: #495057;
+                }
+
+                .answers {
+                    display: flex;
+                    flex-direction: column;
+
+                    .answer {
+                        padding: 10px;
+                        border: 1px solid #ced4da;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+
+                        input[type="radio"] {
+                            display: none;
+                        }
+
+                        .custom-radio {
+                            width: 20px;
+                            height: 20px;
+                            border-radius: 50%;
+                            border: 2px solid #007bff;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            margin-right: 10px;
+                            transition: all 0.3s ease;
+                        }
+
+                        input[type="radio"]:checked + .custom-radio {
+                            background-color: #007bff;
+                        }
+
+                        input[type="radio"]:checked + .custom-radio::after {
+                            content: "";
+                            width: 10px;
+                            height: 10px;
+                            background: white;
+                            border-radius: 50%;
+                        }
+
+                        &:hover {
+                            background-color: #e9ecef;
+                        }
+
+                        &.correct-answer {
+                            background-color: rgba(40, 167, 69, 0.1);
+                            border-color: #28a745;
+                        }
+
+                        .answer-result {
+                            margin-left: auto;
+                            display: flex;
+                            align-items: center;
+                            
+                            .correct-icon {
+                                color: #28a745;
+                                font-size: 1.1rem;
+                                margin-left: 8px;
+                            }
+                            
+                            .incorrect-icon {
+                                color: #dc3545;
+                                font-size: 1.1rem;
+                                margin-left: 8px;
+                            }
+                        }
+
+                        input[type="radio"]:disabled + .custom-radio {
+                            opacity: 0.6;
+                            cursor: not-allowed;
+                        }
+                    }
+                }
+            }
+        }
+        .footer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+
+            .btn {
+                width: 100px;
+            }
+        }
+    }
+
+    .right-container {
+        border-radius: 6px;
+        width: 36%;
+        padding: 16px 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        .main-timer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #343a40;
+            border-bottom: 1px solid #ced4da;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
+        }
+
+        .main-question {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+
+            .question {
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid #333;
+                border-radius: 50%;
+                height: 52px;
+                width: 52px;
+                cursor: pointer;
+
+                &:hover {
+                    border: 1px solid red;
+                    background-color: #e9ecef;
+                    color: red;
+                    transition: all 0.3s ease;
+                }
+
+                &.answered {
+                    background-color: #a0b2c5;
+                    border: 1px solid #a0b2c5;
+                    color: white;
+                }
+
+                &.isSelected {
+                    background-color: #007bff;
+                    border: 1px solid #007bff;
+                    color: white;
+                }
+            }
+
+        }
+    }
+}

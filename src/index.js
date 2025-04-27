@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import store from './redux/store';
+import { store, persistor } from './redux/store';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter } from 'react-router-dom';
+import Layout from './Layout';
+import { PersistGate } from 'redux-persist/integration/react'
+import i18n from './utils/i18n'; // Import the i18n configuration
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,9 +16,13 @@ root.render(
     // Like Fragment, StrictMode does not render any visible UI. 
     // It activates additional checks and warnings for its descendants. */}
     {/* <React.StrictMode> */}
-    <App />
-    {/* </React.StrictMode> */}
-  </Provider>
+    <PersistGate loading={null} persistor={persistor}>
+      <BrowserRouter>
+        <Layout />
+      </BrowserRouter>
+      {/* </React.StrictMode> */}
+    </PersistGate>
+  </Provider >
 );
 
 // If you want to start measuring performance in your app, pass a function

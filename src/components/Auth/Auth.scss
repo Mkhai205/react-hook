@@ -1,0 +1,335 @@
+// Auth.scss - file chung cho cả Login và Register components
+// Định nghĩa các biến màu sắc chung
+$primary-color-1: #4158D0;
+$primary-color-2: #C850C0;
+$primary-color-3: #FFCC70;
+$primary-color-4: #4361ee;
+$text-light: #fff;
+$text-dark: #343a40;
+$text-muted: #6c757d;
+
+// Mixin cho animation gradient
+@mixin gradient-background {
+  background: linear-gradient(-45deg, $primary-color-1, $primary-color-2, $primary-color-3, $primary-color-4);
+  background-size: 400% 400%;
+  animation: gradient-animation 15s ease infinite;
+}
+
+// Mixin cho các button
+@mixin auth-button {
+  border: 2px solid $primary-color-4;
+  background-color: transparent;
+  color: $text-light;
+  border-radius: 25px;
+  padding: 8px 20px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: $text-light;
+    color: $primary-color-4;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
+  }
+}
+
+// Mixin cho form elements
+@mixin form-element {
+  height: 48px;
+  font-size: 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 0 16px;
+  transition: all 0.3s;
+  width: 100%;
+  
+  &:focus {
+    border-color: $primary-color-2;
+    box-shadow: 0 0 0 3px rgba(200, 80, 192, 0.15);
+    outline: none;
+  }
+}
+
+// Mixin cho submit button
+@mixin submit-button {
+  width: 100%;
+  height: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  background: linear-gradient(45deg, $primary-color-1, $primary-color-2);
+  border: none;
+  color: $text-light;
+  transition: all 0.3s;
+  letter-spacing: 0.5px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(200, 80, 192, 0.3);
+    background: linear-gradient(45deg, darken($primary-color-1, 5%), darken($primary-color-2, 5%));
+  }
+  
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+// Animations
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Class cơ sở chung
+.auth-container {
+  height: 100vh;
+  @include gradient-background;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  .header {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 24px;
+    right: 24px;
+    font-size: 1.1rem;
+  }
+
+  .go-back {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    color: $text-light;
+    
+    &:hover {
+      transform: translateX(-5px);
+      background-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    span {
+      margin-right: 12px;
+    }
+  }
+
+  .title {
+    text-align: center;
+    margin-bottom: 20px;
+    animation: fadeIn 1s ease;
+    
+    h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 0;
+      background: linear-gradient(45deg, $text-light, #f8f9fa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .welcome {
+    text-align: center;
+    margin-bottom: 30px;
+    animation: fadeIn 1.2s ease;
+    
+    h5 {
+      font-size: 1.6rem;
+      color: $text-light;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  .form-content {
+    background-color: white;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 450px;
+    animation: slideUp 0.8s ease;
+    
+    .form-group {
+      position: relative;
+      margin-bottom: 20px;
+      
+      label {
+        font-size: 1rem;
+        color: #495057;
+        font-weight: 500;
+        margin-bottom: 8px;
+        display: block;
+      }
+      
+      input {
+        @include form-element;
+      }
+      
+      .icon-eye {
+        position: absolute;
+        bottom: 14px;
+        right: 16px;
+        cursor: pointer;
+        z-index: 1;
+        color: #6c757d;
+        transition: color 0.2s;
+        
+        &:hover {
+          color: $primary-color-2;
+        }
+      }
+    }
+
+    .forget-password {
+      margin: 5px 0 20px 0;
+      color: $primary-color-4;
+      cursor: pointer;
+      font-size: 0.95rem;
+      text-align: right;
+      font-weight: 500;
+      
+      &:hover {
+        text-decoration: underline;
+        color: $primary-color-2;
+      }
+    }
+
+    .btn {
+      @include submit-button;
+      
+      .loading-icon {
+        height: 18px;
+        width: 18px;
+        margin-right: 12px;
+        
+        @media (prefers-reduced-motion: no-preference) {
+          animation: loading-icon-spin infinite 1s linear;
+        }
+      }
+      
+      @keyframes loading-icon-spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    }
+  }
+}
+
+// Login component specific
+.login-container {
+  @extend .auth-container;
+  
+  .header {
+    .sign-up {
+      @include auth-button;
+    }
+  }
+}
+
+// Register component specific
+.register-container {
+  @extend .auth-container;
+  
+  .header {
+    .login {
+      @include auth-button;
+    }
+  }
+}
+
+// Media queries
+@media (max-width: 768px) {
+  .auth-container {
+    padding: 0 20px;
+    
+    .title h1 {
+      font-size: 2.5rem;
+    }
+    
+    .welcome h5 {
+      font-size: 1.4rem;
+    }
+    
+    .form-content {
+      padding: 25px 20px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-container {
+    .title h1 {
+      font-size: 2rem;
+    }
+    
+    .welcome h5 {
+      font-size: 1.2rem;
+    }
+    
+    .header {
+      position: relative;
+      top: auto;
+      right: auto;
+      margin-bottom: 20px;
+    }
+    
+    .go-back {
+      font-size: 0.9rem;
+      top: 16px;
+      left: 16px;
+    }
+  }
+}
