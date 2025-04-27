@@ -38,7 +38,7 @@ const ModalShowUser = (props) => {
                                 width={240}
                                 height={240}
 
-                                className="mb-3"
+                                className="mb-3 object-fit-cover"
                                 
                                 alt={`${dataShow.username}'s profile`}
                             />

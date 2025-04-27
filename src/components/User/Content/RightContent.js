@@ -1,7 +1,7 @@
 import CountDown from "./CountDown";
 
 const RightContent = (props) => {
-    const { dataQuiz, currentQuestion } = props;
+    const { dataQuiz, currentQuestion, isSubmitted } = props;
 
     // console.log("🚀 ~ RightContent.js:6 ~ RightContent ~ data:", dataQuiz);
 
@@ -28,6 +28,7 @@ const RightContent = (props) => {
             <div className="main-timer">
                 <CountDown 
                     onTimeUp={onTimeUp}
+                    isSubmitted={isSubmitted}
                 />
             </div>
 

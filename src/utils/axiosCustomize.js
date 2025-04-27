@@ -34,6 +34,11 @@ instance.interceptors.response.use((response) => {
     nProgress.done();
     // any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
+
+    if (error.response?.data?.EC === -999) {
+        window.location.href = '/login';
+    }
+
     return (error && error.response) ? error.response.data : Promise.reject(error);
 });
 

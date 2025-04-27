@@ -1,16 +1,52 @@
 .detail-quiz-container {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
     margin-top: 20px;
 
+    .breadcrumb-container {
+        margin-bottom: 15px;
+        width: 100%;
+        
+        .breadcrumb {
+            background-color: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 5px;
+            
+            .breadcrumb-item {
+                font-size: 0.9rem;
+                
+                a {
+                    color: #007bff;
+                    text-decoration: none;
+                    
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+                
+                &.active {
+                    color: #6c757d;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+
+    .quiz-content {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+    }
+
     .left-container {
-        border: 1px solid black;
         border-radius: 6px;
         width: 64%;
         padding: 16px 20px;
         display: flex;
         flex-direction: column;
         gap: 10px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
         .q-body {
             .q-title {
@@ -78,6 +114,34 @@
                         &:hover {
                             background-color: #e9ecef;
                         }
+
+                        &.correct-answer {
+                            background-color: rgba(40, 167, 69, 0.1);
+                            border-color: #28a745;
+                        }
+
+                        .answer-result {
+                            margin-left: auto;
+                            display: flex;
+                            align-items: center;
+                            
+                            .correct-icon {
+                                color: #28a745;
+                                font-size: 1.1rem;
+                                margin-left: 8px;
+                            }
+                            
+                            .incorrect-icon {
+                                color: #dc3545;
+                                font-size: 1.1rem;
+                                margin-left: 8px;
+                            }
+                        }
+
+                        input[type="radio"]:disabled + .custom-radio {
+                            opacity: 0.6;
+                            cursor: not-allowed;
+                        }
                     }
                 }
             }
@@ -94,10 +158,11 @@
     }
 
     .right-container {
-        border: 1px solid black;
         border-radius: 6px;
         width: 36%;
         padding: 16px 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
         .main-timer {
             display: flex;

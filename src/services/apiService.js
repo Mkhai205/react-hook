@@ -114,6 +114,23 @@ const getDataOverview = async () => {
     return axios.get("api/v1/overview");
 }
 
+const postUpdateProfile = async (username, image) => {
+    const data = new FormData();
+    data.append("username", username);
+    data.append("userImage", image);
+
+    return axios.post("api/v1/profile", data);
+}
+
+const postChangePassword = async (current_password, new_password) => {
+    return axios.post("api/v1/change-password", { current_password, new_password });
+}
+
+const getHistoryQuiz = async () => {
+    return axios.get("api/v1/history");
+}
+
+
 export {
     postCreateNewUser,
     getAllUsers,
@@ -136,4 +153,7 @@ export {
     postUpsertQA,
     postLogout,
     getDataOverview,
+    postUpdateProfile,
+    postChangePassword,
+    getHistoryQuiz,
 };

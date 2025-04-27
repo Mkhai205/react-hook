@@ -40,7 +40,7 @@ const ModalUpdateUser = (props) => {
         }
     }
 
-    const handleSubmitCreateUser = async () => {
+    const handleSubmitUpdateUser = async () => {
         // validate data
         if (!username) {
             toast.error('Username is required');
@@ -143,7 +143,7 @@ const ModalUpdateUser = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => handleSubmitCreateUser()}>
+                    <Button variant="primary" onClick={() => handleSubmitUpdateUser()}>
                         Save
                     </Button>
                 </Modal.Footer>
